@@ -1,0 +1,32 @@
+<h2>Sign up</h2>
+
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :first_name, required: true, autofocus: true %>
+    <%= f.input :last_name, required: true %>
+    <%= f.input :job_title_id, as: :select, collection: JobTitle.all, required: true %>
+    <%= f.input :reports_to_id, collection: @managers, include_blank: true %>
+    <%= f.input :employee_number, hint: ('EN######'), input_html: { maxlength: 7 }, required: true %>
+    <%= f.input :department_id, as: :select, collection: Department.all, required: true %>
+    <%= f.input :location_id, as: :select, collection: Location.all, required: true %>
+    <%= f.input :address %>
+    <%= f.input :city %>
+    <%= f.input :state, input_html: { maxlength: 2 }%>
+    <%= f.input :zip_code, input_html: { maxlength: 5 }%>
+    <%= f.input :phone_number %>
+    <%= f.input :email, placeholder: 'first.last@baystatehealth.org', required: true %>
+    <%= f.input :active, as: :select, required: true %>
+    <%= f.input :admin, as: :select, required: true %>
+    <%= f.input :manager, as: :select, required: true %>
+    <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+    <%= f.input :password_confirmation, required: true %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>
