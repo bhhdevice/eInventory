@@ -53,8 +53,9 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
-  gem 'shoulda-matchers', '~> 3.1' 
+  gem 'shoulda-matchers', '~> 3.1'
   gem 'rails-controller-testing'
+  gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 end
 
 group :development do

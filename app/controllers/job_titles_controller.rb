@@ -42,7 +42,7 @@ class JobTitlesController < ApplicationController
   private
 
     def set_object
-      @job_title = load_resource
+      @job_title = load_resource('job_title')
     end
 
     def job_title_params

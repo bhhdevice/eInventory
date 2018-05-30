@@ -3,8 +3,6 @@ FactoryBot.define do
     sequence :name do |n|
       "department#{n}"
     end
-    sequence :cost_center do |n|
-      "center#{n}"
-    end
+    cost_center { "V#{Faker::Number.number(3)}" }
   end
 end
