@@ -11,9 +11,10 @@ RSpec.describe JobTitlesController, type: :routing do
       expect(:get => "/job_titles/new").to route_to("job_titles#new")
     end
 
-    it "routes to #show" do
-      expect(:get => "/job_titles/1").to route_to("job_titles#show", :id => "1")
-    end
+    # disabled functionality
+    # it "routes to #show" do
+    #   expect(:get => "/job_titles/1").to route_to("job_titles#show", :id => "1")
+    # end
 
     it "routes to #edit" do
       expect(:get => "/job_titles/1/edit").to route_to("job_titles#edit", :id => "1")

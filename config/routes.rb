@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :job_titles, except: [:show]
   resources :departments, except: [:show]
-  resources :locations
+  resources :locations, except: [:show]
   scope :admin do
     resources :users, controller: :users
   end

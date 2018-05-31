@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "JobTitles", type: :request do
+
   describe "GET /job_titles" do
     it "works! (now write some real specs)" do
       get job_titles_path

@@ -5,10 +5,6 @@ class JobTitlesController < ApplicationController
     @job_titles = JobTitle.all
   end
 
-  def show
-
-  end
-
   def new
     @job_title = JobTitle.new
   end

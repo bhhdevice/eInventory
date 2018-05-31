@@ -10,10 +10,11 @@ RSpec.describe DepartmentsController, type: :routing do
     it "routes to #new" do
       expect(:get => "/departments/new").to route_to("departments#new")
     end
-
-    it "routes to #show" do
-      expect(:get => "/departments/1").to route_to("departments#show", :id => "1")
-    end
+    
+    #disabled functionality
+    # it "routes to #show" do
+    #   expect(:get => "/departments/1").to route_to("departments#show", :id => "1")
+    # end
 
     it "routes to #edit" do
       expect(:get => "/departments/1/edit").to route_to("departments#edit", :id => "1")
