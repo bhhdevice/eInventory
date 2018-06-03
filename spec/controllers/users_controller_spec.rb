@@ -1,9 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe RegistrationsController, type: :controller do
+RSpec.describe UsersController, type: :controller do
 
   before(:each) do
-    @request.env["devise.mapping"] = Devise.mappings[:user]
+    login_admin
+    @job_title = create(:job_title)
+    @department = create(:department)
+    @location = create(:location)
   end
 
   let(:valid_attributes) {
@@ -11,11 +14,13 @@ RSpec.describe RegistrationsController, type: :controller do
       first_name: 'John',
       last_name: 'Smith',
       employee_number: "EN#{rand(5 ** 5).to_s.rjust(5,'0')}",
-      job_title: create(:job_title),
-      department: create(:department),
-      location: create(:location),
+      job_title_id: @job_title.id,
+      department_id: @department.id,
+      location_id: @location.id,
+      admin: true,
       email: "john.smith#{rand(5 ** 5)}@test.com",
-      password: "Pa$$word"
+      password: "Pa$$word",
+      password_confirmation: "Pa$$word"
     }
   }
 
@@ -34,14 +39,6 @@ RSpec.describe RegistrationsController, type: :controller do
 
   let(:valid_session) { {} }
 
-  describe "GET #sign_in" do
-    it "returns a success response" do
-      user = User.create! valid_attributes
-      get :sign_in, params: {}, session: valid_session
-      expect(response).to be_successful
-    end
-  end
-
   describe "GET #new" do
     it "returns a success response" do
       get :new, params: {}, session: valid_session
@@ -59,7 +56,7 @@ RSpec.describe RegistrationsController, type: :controller do
 
   describe "POST #create" do
     context "with valid params" do
-      it "creates a new User" do
+      it "creates a new admin User" do
         expect {
           post :create, params: {user: valid_attributes}, session: valid_session
         }.to change(User, :count).by(1)

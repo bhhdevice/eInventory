@@ -16,12 +16,14 @@
     <%= f.input :state, input_html: { maxlength: 2 }%>
     <%= f.input :zip_code, input_html: { maxlength: 5 }%>
     <%= f.input :phone_number %>
-    <%= f.input :email, required: true %>
-    <%= f.input :active, as: :select, required: true %>
-    <%= f.input :admin, as: :select, required: true %>
-    <%= f.input :manager, as: :select, required: true %>
-    <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false %>
-    <%= f.input :password_confirmation, required: false %>
+    <% if current_user.present? && current_user.admin? %>
+      <%= f.input :email, required: true %>
+      <%= f.input :active, as: :select, required: true %>
+      <%= f.input :admin, as: :select, required: true %>
+      <%= f.input :manager, as: :select, required: true %>
+      <%= f.input :password, autocomplete: "off" %>
+      <%= f.input :password_confirmation, autocomplete: "off" %>
+    <% end %>
   </div>
 
   <div class="form-actions">

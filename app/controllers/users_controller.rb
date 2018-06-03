@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :get_managers, except: :index
 
   def index
-    @users = User.all
+    @users = User.all.where.not(id: current_user)
   end
 
   def new
@@ -11,7 +11,9 @@ class UsersController < ApplicationController
   end
 
   def edit
-
+    if @user == current_user
+      redirect_to edit_user_registration_path
+    end
   end
 
   def create

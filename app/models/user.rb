@@ -9,10 +9,15 @@ class User < ApplicationRecord
 
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :job_title_id, presence: true
+  validates :job_title, presence: true
   validates :employee_number, presence: true, uniqueness: true
-  validates :department_id, presence: true
-  validates :location_id, presence: true
+  validates :department, presence: true
+  validates :location, presence: true
+  validates :address, presence: true, allow_blank: true
+  validates :state, presence: true, allow_blank: true, length: { is: 2 }
+  validates :city, presence: true, allow_blank: true
+  validates :zip_code, presence: true, allow_blank: true, length: { is: 5 }
+  validates :phone_number, presence: true, allow_blank: true
   validates_inclusion_of :active, in: [true, false]
   validates_inclusion_of :admin, in: [true, false]
   validates_inclusion_of :manager, in: [true, false]
