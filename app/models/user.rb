@@ -10,7 +10,7 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :job_title, presence: true
-  validates :employee_number, presence: true, uniqueness: true
+  validates :employee_number, presence: true, uniqueness: true, length: { is: 7 }
   validates :department, presence: true
   validates :location, presence: true
   validates :address, presence: true, allow_blank: true

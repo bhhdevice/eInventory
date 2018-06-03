@@ -6,11 +6,11 @@
   <div class="form-inputs">
     <%= f.input :first_name, required: true, autofocus: true %>
     <%= f.input :last_name, required: true %>
-    <%= f.input :job_title_id, as: :select, collection: JobTitle.all, required: true %>
+    <%= f.association :job_title, required: true %>
     <%= f.input :reports_to_id, collection: @managers, include_blank: true %>
     <%= f.input :employee_number, hint: ('EN######'), input_html: { maxlength: 7 }, required: true %>
-    <%= f.input :department_id, as: :select, collection: Department.all, required: true %>
-    <%= f.input :location_id, as: :select, collection: Location.all, required: true %>
+    <%= f.association :department, required: true %>
+    <%= f.association :location, required: true %>
     <%= f.input :address %>
     <%= f.input :city %>
     <%= f.input :state, input_html: { maxlength: 2 }%>
