@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe "locations/index", type: :view do
   before(:each) do
     assign(:locations, [
-      Location.create!(),
-      Location.create!()
+      create(:location),
+      create(:location)
     ])
   end
 
