@@ -27,4 +27,9 @@ module AuthenticationHelper
     user.save
     sign_in user
   end
+
+  # Request helper to login
+  def request_login(user)
+    post user_session_path, params: { email: user.email, password: user.password }
+  end
 end

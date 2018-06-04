@@ -9,6 +9,7 @@ RSpec.describe "job_titles/new", type: :view do
     render
 
     assert_select "form[action=?][method=?]", job_titles_path, "post" do
+      assert_select "input#job_title_name[name=?]", "job_title[name]"
     end
   end
 end

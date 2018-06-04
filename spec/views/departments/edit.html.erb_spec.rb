@@ -8,7 +8,9 @@ RSpec.describe "departments/edit", type: :view do
   it "renders the edit department form" do
     render
 
-    assert_select "form[action=?][method=?]", departments_path, "post" do
+    assert_select "form[action=?][method=?]", department_path(@department), "post" do
+      assert_select "input#department_name[name=?]", "department[name]"
+      assert_select "input#department_cost_center[name=?]", "department[cost_center]"
     end
   end
 end

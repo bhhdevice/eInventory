@@ -8,7 +8,8 @@ RSpec.describe "job_titles/edit", type: :view do
   it "renders the edit job_title form" do
     render
 
-    assert_select "form[action=?][method=?]", job_titles_path, "post" do
+    assert_select "form[action=?][method=?]", job_title_path(@job_title), "post" do
+      assert_select "input#job_title_name[name=?]", "job_title[name]"
     end
   end
 end

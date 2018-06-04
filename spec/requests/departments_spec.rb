@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "Departments", type: :request do
+
   describe "GET /departments" do
-    it "works! (now write some real specs)" do
-      get departments_path
-      expect(response).to have_http_status(200)
+    it "responds to departments path" do
+      get '/departments'
+      expect(response).to be_successful
     end
   end
 end
