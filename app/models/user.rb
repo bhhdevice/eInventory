@@ -6,6 +6,7 @@ class User < ApplicationRecord
   belongs_to :department
   belongs_to :location
   belongs_to :job_title
+  belongs_to :reports_to, class_name: 'User', foreign_key: 'reports_to_id'
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -21,10 +22,6 @@ class User < ApplicationRecord
   validates_inclusion_of :active, in: [true, false]
   validates_inclusion_of :admin, in: [true, false]
   validates_inclusion_of :manager, in: [true, false]
-
-  def reports_to
-    User.find(self.reports_to_id)
-  end
 
   def full_name
     "#{first_name} #{last_name}"
