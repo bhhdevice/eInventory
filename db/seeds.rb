@@ -5,3 +5,15 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+statuses = [
+  {name: 'Active'},
+  {name: 'Inactive'},
+  {name: 'Medical Leave'},
+  {name: 'Resigned'},
+  {name: 'Terminated'},
+]
+
+statuses.each do |status|
+  Status.find_or_create_by(status)
+end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :employees
   resources :job_titles, except: [:show]
   resources :departments, except: [:show]
   resources :locations, except: [:show]

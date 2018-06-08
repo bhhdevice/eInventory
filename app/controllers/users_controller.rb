@@ -28,6 +28,11 @@ class UsersController < ApplicationController
 
   def update
     @user.update(user_params_no_password)
+    if user_params_no_password[:disable_login] == 'true'
+      @user.lock_access!
+    elsif user_params_no_password[:disable_login] == 'false'
+      @user.unlock_access!
+    end
     if password_params[:password].present?
       @user.update(password_params)
     end
@@ -52,8 +57,9 @@ class UsersController < ApplicationController
 
     def user_params_no_password
       params.require(:user).permit(:first_name, :last_name, :location_id, :department_id, :phone_number,
-                                   :reports_to_id, :reports_to_type, :employee_number, :address, :state, :city, :zip_code,
-                                   :active, :job_title_id, :admin, :manager, :email)
+                                   :reports_to_id, :disable_login, :status_id, :reports_to_type, :employee_number,
+                                   :address, :state, :city, :zip_code, :active, :job_title_id, :admin,
+                                   :manager, :email)
     end
 
     def password_params

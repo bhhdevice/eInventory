@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_19_025217) do
+ActiveRecord::Schema.define(version: 2018_06_08_185549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,13 @@ ActiveRecord::Schema.define(version: 2018_05_19_025217) do
     t.index ["name"], name: "index_locations_on_name", unique: true
   end
 
+  create_table "statuses", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_statuses_on_name", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
@@ -55,7 +62,6 @@ ActiveRecord::Schema.define(version: 2018_05_19_025217) do
     t.string "state", limit: 2
     t.string "city"
     t.bigint "zip_code"
-    t.boolean "active", default: true, null: false
     t.bigint "job_title_id", null: false
     t.boolean "admin", default: false, null: false
     t.boolean "manager", default: false, null: false
@@ -71,6 +77,10 @@ ActiveRecord::Schema.define(version: 2018_05_19_025217) do
     t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "status_id"
+    t.boolean "disable_login", default: false
+    t.string "unlock_token"
+    t.datetime "locked_at"
     t.index ["department_id"], name: "index_users_on_department_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["employee_number"], name: "index_users_on_employee_number", unique: true
@@ -78,6 +88,8 @@ ActiveRecord::Schema.define(version: 2018_05_19_025217) do
     t.index ["location_id"], name: "index_users_on_location_id"
     t.index ["reports_to_type", "reports_to_id"], name: "index_users_on_reports_to_type_and_reports_to_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["status_id"], name: "index_users_on_status_id"
+    t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
 end

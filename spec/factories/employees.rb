@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :user do
+  factory :employee do
     first_name "John"
     last_name "Smith"
     sequence :employee_number do |n|
@@ -9,9 +9,9 @@ FactoryBot.define do
     job_title
     department
     location
+    disable_login true
     sequence :email do |n|
       "john.smith#{n}@test.com"
     end
-    password "Pa$$word"
   end
 end

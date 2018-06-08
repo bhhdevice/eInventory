@@ -7,8 +7,7 @@
     <%= f.input :first_name, required: true, autofocus: true %>
     <%= f.input :last_name, required: true %>
     <%= f.association :job_title, required: true %>
-    <%= f.input :reports_to_id, collection: @managers, include_blank: true %>
-    <%= f.input :employee_number, hint: ('EN######'), input_html: { maxlength: 7 }, required: true %>
+    <%= f.input :employee_number, placeholder: ('EN######'), input_html: { maxlength: 7 }, required: true %>
     <%= f.association :department, required: true %>
     <%= f.association :location, required: true %>
     <%= f.input :address %>
@@ -17,11 +16,6 @@
     <%= f.input :zip_code, input_html: { maxlength: 5 }%>
     <%= f.input :phone_number %>
     <%= f.input :email, placeholder: 'first.last@baystatehealth.org', required: true %>
-    <% if user_signed_in? && current_user.admin? %>
-      <%= f.input :active, as: :select, required: true %>
-      <%= f.input :admin, as: :select, required: true %>
-      <%= f.input :manager, as: :select, required: true %>
-    <% end %>
     <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
     <%= f.input :password_confirmation, required: true %>
   </div>

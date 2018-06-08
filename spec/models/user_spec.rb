@@ -16,7 +16,6 @@ RSpec.describe User, type: :model do
     it { should validate_length_of(:state).is_equal_to 2 }
     it { should allow_value(nil).for(:city) }
     it { should allow_value(nil).for(:zip_code) }
-
     it { should allow_value(nil).for(:phone_number) }
   end
 
@@ -24,5 +23,7 @@ RSpec.describe User, type: :model do
     it { should belong_to(:department) }
     it { should belong_to(:location) }
     it { should belong_to(:job_title) }
+    it { should belong_to(:status) }
+    it { should belong_to(:reports_to) }
   end
 end

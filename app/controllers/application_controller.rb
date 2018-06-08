@@ -9,12 +9,12 @@ class ApplicationController < ActionController::Base
 
     def configure_permitted_parameters
       devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :location_id, :department_id, :phone_number,
-                                                         :reports_to_id, :reports_to_type, :employee_number, :address, :state, :city, :zip_code,
-                                                         :active, :job_title_id, :admin, :manager, :email, :password, :password_confirmation
+                                                         :employee_number, :address, :state, :city, :zip_code,
+                                                         :status_id, :job_title_id, :email, :password, :password_confirmation
                                                          ])
       devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :location_id, :department_id, :phone_number,
-                                                         :reports_to_id, :reports_to_type, :employee_number, :address, :state, :city, :zip_code,
-                                                         :active, :job_title_id, :admin, :manager, :email, :password, :password_confirmation
+                                                         :employee_number, :address, :state, :city, :zip_code,
+                                                         :status_id, :job_title_id, :admin, :manager, :email, :password, :password_confirmation
                                                         ])
     end
 

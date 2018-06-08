@@ -7,6 +7,7 @@ RSpec.describe UsersController, type: :controller do
     @job_title = create(:job_title)
     @department = create(:department)
     @location = create(:location)
+    @status = create(:status)
   end
 
   let(:valid_attributes) {
@@ -17,7 +18,8 @@ RSpec.describe UsersController, type: :controller do
       job_title_id: @job_title.id,
       department_id: @department.id,
       location_id: @location.id,
-      admin: true,
+      status_id: @status.id,
+      disable_login: false,
       email: "john.smith#{rand(5 ** 5)}@test.com",
       password: "Pa$$word",
       password_confirmation: "Pa$$word"
