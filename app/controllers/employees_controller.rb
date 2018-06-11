@@ -2,7 +2,7 @@ class EmployeesController < ApplicationController
   before_action :set_object, only: [:show]
 
   def index
-    @employees = Employee.all.where.not(id: current_user).where(disable_login: true)
+    @employees = Employee.active.not_admin
   end
 
   def show
@@ -57,14 +57,14 @@ class EmployeesController < ApplicationController
       @employee = load_resource('employees')
     end
 
-    def user_params_no_password
-      params.require(:employee).permit(:first_name, :last_name, :location_id, :department_id, :phone_number,
-                                   :reports_to_id, :disable_login, :status_id, :reports_to_type, :employee_number,
-                                   :address, :state, :city, :zip_code, :active, :job_title_id, :admin,
-                                   :manager, :email)
-    end
-
-    def password_params
-      params.require(:user).permit(:password, :password_confirmation)
-    end
+    # def user_params_no_password
+    #   params.require(:employee).permit(:first_name, :last_name, :location_id, :department_id, :phone_number,
+    #                                :reports_to_id, :disable_login, :status_id, :reports_to_type, :employee_number,
+    #                                :address, :state, :city, :zip_code, :active, :job_title_id, :admin,
+    #                                :manager, :email)
+    # end
+    #
+    # def password_params
+    #   params.require(:user).permit(:password, :password_confirmation)
+    # end
 end

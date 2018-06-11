@@ -1,5 +1,4 @@
-class JobTitle < ApplicationRecord
-  has_many :users
+class Category < ApplicationRecord
   before_save :format_data
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }

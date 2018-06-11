@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-statuses = [
+STATUSES = [
   {name: 'Active'},
   {name: 'Inactive'},
   {name: 'Medical Leave'},
@@ -14,6 +14,26 @@ statuses = [
   {name: 'Terminated'},
 ]
 
-statuses.each do |status|
+CATEGORIES = [
+  {name: 'Laptop'},
+  {name: 'Tablet'},
+  {name: 'Phone'},
+  {name: 'Charger'},
+  {name: 'Cable'},
+  {name: 'Battery'},
+  {name: 'Case'},
+  {name: 'Storage'},
+  {name: 'Keyboard'},
+  {name: 'Mouse'},
+  {name: 'Miscellaneous'}
+]
+
+STATUSES.each do |status|
   Status.find_or_create_by(status)
+end
+
+
+
+CATEGORIES.each do |category|
+  Category.find_or_create_by(category)
 end

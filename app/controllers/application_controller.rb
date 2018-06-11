@@ -3,9 +3,14 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :get_managers, if: :devise_controller?
+  before_action :load_states
 
 
   protected
+
+    def load_states
+      @states = HomeHelper::STATES.sort.map { |k,v| [k,v] }
+    end
 
     def configure_permitted_parameters
       devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :location_id, :department_id, :phone_number,

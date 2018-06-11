@@ -8,12 +8,14 @@ class User < ApplicationRecord
   belongs_to :job_title
   belongs_to :status
   belongs_to :reports_to, class_name: 'User', foreign_key: 'reports_to_id', optional: true
-  after_initialize :set_default_status
+  after_initialize :set_defaults
+  before_save :format_data
 
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :job_title, presence: true
-  validates :employee_number, presence: true, uniqueness: true, length: { is: 7 }
+  validates :employee_number, presence: true, uniqueness: { case_sensitive: false }, length: { is: 7 }
+  validates :email, presence: true, uniqueness: { case_sensitive: false }
   validates :department, presence: true
   validates :location, presence: true
   validates :address, presence: true, allow_blank: true
@@ -46,7 +48,16 @@ class User < ApplicationRecord
 
   private
 
-  def set_default_status
+  def set_defaults
     self.status ||= Status.find_by_name('Active')
+  end
+
+  def format_data
+    self.employee_number = self.employee_number.upcase
+    self.first_name = self.first_name.downcase.titleize
+    self.last_name = self.last_name.downcase.titleize
+    self.email = self.email.downcase
+    self.city = self.city.downcase.titleize
+    self.address = self.address.downcase.titleize
   end
 end

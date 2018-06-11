@@ -28,9 +28,9 @@ class UsersController < ApplicationController
 
   def update
     @user.update(user_params_no_password)
-    if user_params_no_password[:disable_login] == 'true'
+    if @user.locked_at.blank? && user_params_no_password[:disable_login] == 'true'
       @user.lock_access!
-    elsif user_params_no_password[:disable_login] == 'false'
+    elsif @user.locked_at? && user_params_no_password[:disable_login] == 'false'
       @user.unlock_access!
     end
     if password_params[:password].present?

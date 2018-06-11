@@ -13,7 +13,7 @@
     <%= f.association :location, required: true %>
     <%= f.input :address %>
     <%= f.input :city %>
-    <%= f.input :state, input_html: { maxlength: 2 }%>
+    <%= f.input :state, collection: @states, input_html: { maxlength: 2 }%>
     <%= f.input :zip_code, input_html: { maxlength: 5 }%>
     <%= f.input :phone_number %>
     <% if user_signed_in? && current_user.admin? %>

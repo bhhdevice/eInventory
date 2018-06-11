@@ -13,14 +13,14 @@
     <%= f.association :location, required: true %>
     <%= f.input :address %>
     <%= f.input :city %>
-    <%= f.input :state, input_html: { maxlength: 2 }%>
+    <%= f.input :state, collection: @states, input_html: { maxlength: 2 }%>
     <%= f.input :zip_code, input_html: { maxlength: 5 }%>
     <%= f.input :phone_number %>
     <%= f.input :email, placeholder: 'first.last@baystatehealth.org', required: true %>
     <% if user_signed_in? && current_user.admin? %>
       <%= f.association :status, required: true, disabled: true %>
-      <%= f.input :admin, as: :radio_buttons, required: true, disabled: true %>
-      <%= f.input :manager, as: :radio_buttons, required: true, disabled: true %>
+      <%= f.input :admin, as: :radio_buttons, required: true %>
+      <%= f.input :manager, as: :radio_buttons, required: true %>
     <% end %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
