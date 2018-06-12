@@ -57,7 +57,7 @@ class User < ApplicationRecord
     self.first_name = self.first_name.downcase.titleize
     self.last_name = self.last_name.downcase.titleize
     self.email = self.email.downcase
-    self.city = self.city.downcase.titleize
-    self.address = self.address.downcase.titleize
+    self.city.nil? ? nil : self.city = self.city.downcase.titleize
+    self.address.nil? ? nil : self.address = self.address.downcase.titleize
   end
 end

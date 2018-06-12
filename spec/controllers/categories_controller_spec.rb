@@ -25,15 +25,23 @@ require 'rails_helper'
 
 RSpec.describe CategoriesController, type: :controller do
 
+  before(:each) do
+    login_admin
+  end
+
   # This should return the minimal set of attributes required to create a valid
   # Category. As you add validations to Category, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      name: 'Laptop'
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      name: ''
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -45,22 +53,22 @@ RSpec.describe CategoriesController, type: :controller do
     it "returns a success response" do
       category = Category.create! valid_attributes
       get :index, params: {}, session: valid_session
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
-  describe "GET #show" do
-    it "returns a success response" do
-      category = Category.create! valid_attributes
-      get :show, params: {id: category.to_param}, session: valid_session
-      expect(response).to be_success
-    end
-  end
+  # describe "GET #show" do
+  #   it "returns a success response" do
+  #     category = Category.create! valid_attributes
+  #     get :show, params: {id: category.to_param}, session: valid_session
+  #     expect(response).to be_successful
+  #   end
+  # end
 
   describe "GET #new" do
     it "returns a success response" do
       get :new, params: {}, session: valid_session
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
@@ -68,7 +76,7 @@ RSpec.describe CategoriesController, type: :controller do
     it "returns a success response" do
       category = Category.create! valid_attributes
       get :edit, params: {id: category.to_param}, session: valid_session
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
@@ -82,14 +90,14 @@ RSpec.describe CategoriesController, type: :controller do
 
       it "redirects to the created category" do
         post :create, params: {category: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(Category.last)
+        expect(response).to redirect_to(categories_url)
       end
     end
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'new' template)" do
         post :create, params: {category: invalid_attributes}, session: valid_session
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   end
@@ -110,7 +118,7 @@ RSpec.describe CategoriesController, type: :controller do
       it "redirects to the category" do
         category = Category.create! valid_attributes
         put :update, params: {id: category.to_param, category: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(category)
+        expect(response).to redirect_to(categories_url)
       end
     end
 
@@ -118,7 +126,7 @@ RSpec.describe CategoriesController, type: :controller do
       it "returns a success response (i.e. to display the 'edit' template)" do
         category = Category.create! valid_attributes
         put :update, params: {id: category.to_param, category: invalid_attributes}, session: valid_session
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   end
