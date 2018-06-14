@@ -1,5 +1,5 @@
 class LocationsController < ApplicationController
-  before_action :set_object, only: [:show, :edit, :update, :destroy]
+  before_action :set_object, only: [:edit, :update, :destroy]
 
   def index
     @locations = Location.all

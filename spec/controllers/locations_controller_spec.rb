@@ -5,7 +5,7 @@ RSpec.describe LocationsController, type: :controller do
   before(:each) do
     login_admin
   end
-  
+
   let(:valid_attributes) {
     {
       name: 'Clinical Informatics',
@@ -13,7 +13,7 @@ RSpec.describe LocationsController, type: :controller do
       city: 'City',
       state: 'AL',
       zip_code: '12345',
-      phone_number: '1231231234'
+      phone_number: '123-123-1234'
     }
   }
 

@@ -19,10 +19,10 @@ class User < ApplicationRecord
   validates :department, presence: true
   validates :location, presence: true
   validates :address, presence: true, allow_blank: true
-  validates :state, presence: true, allow_blank: true, length: { is: 2 }
+  validates :state, presence: true, allow_blank: true, length: { is: 2 }, inclusion: { in: HomeHelper::STATES.values }
   validates :city, presence: true, allow_blank: true
-  validates :zip_code, presence: true, allow_blank: true, length: { is: 5 }
-  validates :phone_number, presence: true, allow_blank: true
+  validates :zip_code, presence: true, allow_blank: true, format: { with: /\A\d{5}(?:[-\s]\d{4})?\z/i }
+  validates :phone_number, presence: true, allow_blank: true, format: { with: /\A(\d{1,2}\-)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}\z/i }
   validates :reports_to, presence: true, allow_blank: true
   validates :status, presence: true
   validates_inclusion_of :disable_login, in: [true, false]

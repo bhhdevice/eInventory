@@ -8,8 +8,8 @@
     <%= f.input :address %>
     <%= f.input :city %>
     <%= f.input :state, collection: @states %>
-    <%= f.input :zip_code %>
-    <%= f.input :phone_number %>
+    <%= f.input :zip_code, hint: '12345 or 12345-1234', input_html: { maxlength: 10 } %>
+    <%= f.input :phone_number, hint: '1-123-123-1234 or 123-123-1234' %>
   </div>
 
   <div class="form-actions">

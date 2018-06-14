@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_11_174913) do
+ActiveRecord::Schema.define(version: 2018_06_14_015843) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "brands", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "address", null: false
+    t.string "state", limit: 2, null: false
+    t.string "city", null: false
+    t.string "zip_code", limit: 10, null: false
+    t.string "phone_number", null: false
+    t.string "website", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "address"], name: "index_brands_on_name_and_address", unique: true
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string "name", null: false
@@ -42,7 +55,7 @@ ActiveRecord::Schema.define(version: 2018_06_11_174913) do
     t.string "address", null: false
     t.string "city", null: false
     t.string "state", limit: 2, null: false
-    t.string "zip_code", limit: 5, null: false
+    t.string "zip_code", limit: 10, null: false
     t.string "phone_number", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -68,7 +81,7 @@ ActiveRecord::Schema.define(version: 2018_06_11_174913) do
     t.string "address"
     t.string "state", limit: 2
     t.string "city"
-    t.string "zip_code"
+    t.string "zip_code", limit: 10
     t.bigint "job_title_id", null: false
     t.boolean "admin", default: false, null: false
     t.boolean "manager", default: false, null: false

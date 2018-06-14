@@ -1,7 +1,7 @@
 FactoryBot.define do
-  factory :location do
+  factory :brand do
     sequence :name do |n|
-      "location#{n}"
+      "brand#{n}"
     end
     address "123 test st"
     city "test"
