@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe "brands/index", type: :view do
   before(:each) do
     assign(:brands, [
-      Brand.create!(),
-      Brand.create!()
+      create(:brand),
+      create(:brand)
     ])
   end
 

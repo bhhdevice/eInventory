@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe BrandsController, type: :controller do
 
+  before(:each) do
+    login_admin
+  end
+
   # This should return the minimal set of attributes required to create a valid
   # Brand. As you add validations to Brand, be sure to
   # adjust the attributes here as well.
@@ -38,22 +42,22 @@ RSpec.describe BrandsController, type: :controller do
     it "returns a success response" do
       brand = Brand.create! valid_attributes
       get :index, params: {}, session: valid_session
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
-  describe "GET #show" do
-    it "returns a success response" do
-      brand = Brand.create! valid_attributes
-      get :show, params: {id: brand.to_param}, session: valid_session
-      expect(response).to be_success
-    end
-  end
+  # describe "GET #show" do
+  #   it "returns a success response" do
+  #     brand = Brand.create! valid_attributes
+  #     get :show, params: {id: brand.to_param}, session: valid_session
+  #     expect(response).to be_successful
+  #   end
+  # end
 
   describe "GET #new" do
     it "returns a success response" do
       get :new, params: {}, session: valid_session
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
@@ -61,7 +65,7 @@ RSpec.describe BrandsController, type: :controller do
     it "returns a success response" do
       brand = Brand.create! valid_attributes
       get :edit, params: {id: brand.to_param}, session: valid_session
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
@@ -75,14 +79,14 @@ RSpec.describe BrandsController, type: :controller do
 
       it "redirects to the created brand" do
         post :create, params: {brand: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(Brand.last)
+        expect(response).to redirect_to(brands_url)
       end
     end
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'new' template)" do
         post :create, params: {brand: invalid_attributes}, session: valid_session
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   end
@@ -103,7 +107,7 @@ RSpec.describe BrandsController, type: :controller do
       it "redirects to the brand" do
         brand = Brand.create! valid_attributes
         put :update, params: {id: brand.to_param, brand: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(brand)
+        expect(response).to redirect_to(brands_url)
       end
     end
 
@@ -111,7 +115,7 @@ RSpec.describe BrandsController, type: :controller do
       it "returns a success response (i.e. to display the 'edit' template)" do
         brand = Brand.create! valid_attributes
         put :update, params: {id: brand.to_param, brand: invalid_attributes}, session: valid_session
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   end
