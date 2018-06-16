@@ -16,7 +16,16 @@ RSpec.describe User, type: :model do
     it { should validate_length_of(:state).is_equal_to 2 }
     it { should allow_value(nil).for(:city) }
     it { should allow_value(nil).for(:zip_code) }
+    it { should_not allow_value('acbd').for(:zip_code)}
+    it { should_not allow_value('1234').for(:zip_code)}
+    it { should allow_value('01234').for(:zip_code)}
+    it { should allow_value('01234-1234').for(:zip_code)}
     it { should allow_value(nil).for(:phone_number) }
+    it { should_not allow_value('acbd').for(:phone_number)}
+    it { should_not allow_value('1234').for(:phone_number)}
+    it { should_not allow_value('0123456789').for(:phone_number)}
+    it { should allow_value('123-123-1234').for(:phone_number)}
+    it { should allow_value('1-123-123-1234').for(:phone_number)}
   end
 
   describe 'associations' do

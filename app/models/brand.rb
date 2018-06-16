@@ -7,7 +7,7 @@ class Brand < ApplicationRecord
   validates :city, presence: true
   validates :zip_code, presence: true, format: { with: /\A\d{5}(?:[-\s]\d{4})?\z/i }
   validates :phone_number, presence: true, format: { with: /\A(\d{1,2}\-)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}\z/i }
-  validates :website, presence: true, format: { with: /\A(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/i }
+  validates :website, presence: true, format: { with: URI::regexp(%w(http https)) }
 
   private
     def format_data
