@@ -17,7 +17,7 @@ RSpec.describe BrandsController, type: :controller do
       state: 'AL',
       zip_code: '12345',
       phone_number: '123-123-1234',
-      website: 'www.test.com'
+      website: 'https://www.test.com'
     }
   }
 
