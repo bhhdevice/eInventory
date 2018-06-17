@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   scope :admin do
     resources :users, controller: :users
     resources :brands, except: [:show], controller: :brands
+    resources :models, except: [:show], controller: :models
     resources :categories, except: [:show], controller: :categories
     resources :job_titles, except: [:show], controller: :job_titles
     resources :departments, except: [:show], controller: :departments

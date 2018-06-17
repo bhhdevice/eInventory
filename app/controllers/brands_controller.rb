@@ -38,7 +38,7 @@ class BrandsController < ApplicationController
   private
 
     def set_object
-      @brand = load_resource('brands')
+      @brand = load_resource('brand')
     end
 
     def brand_params

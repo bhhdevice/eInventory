@@ -1,4 +1,5 @@
 class Category < ApplicationRecord
+  has_many :models
   before_save :format_data
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_14_015843) do
+ActiveRecord::Schema.define(version: 2018_06_17_013123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,32 @@ ActiveRecord::Schema.define(version: 2018_06_14_015843) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_locations_on_name", unique: true
+  end
+
+  create_table "models", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "release_date", null: false
+    t.bigint "brand_id", null: false
+    t.bigint "category_id", null: false
+    t.string "processor"
+    t.string "ram"
+    t.string "storage_capacity"
+    t.string "storage_type"
+    t.string "display"
+    t.string "battery_capacity"
+    t.string "wifi"
+    t.string "bluetooth"
+    t.string "gps"
+    t.string "cellular"
+    t.string "camera"
+    t.string "size"
+    t.string "weight"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brand_id"], name: "index_models_on_brand_id"
+    t.index ["category_id"], name: "index_models_on_category_id"
+    t.index ["name"], name: "index_models_on_name", unique: true
+    t.index ["release_date"], name: "index_models_on_release_date"
   end
 
   create_table "statuses", force: :cascade do |t|

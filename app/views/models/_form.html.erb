@@ -1,0 +1,29 @@
+
+<%= simple_form_for(@model) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.association :brand, required: true %>
+    <%= f.input :name, required: true %>
+    <%= f.association :category, required: true %>
+    <%= f.input :release_date, as: :date, required: true %>
+    <%= f.input :processor %>
+    <%= f.input :ram %>
+    <%= f.input :storage_capacity %>
+    <%= f.input :storage_type %>
+    <%= f.input :display %>
+    <%= f.input :battery_capacity %>
+    <%= f.input :wifi %>
+    <%= f.input :bluetooth %>
+    <%= f.input :gps %>
+    <%= f.input :cellular %>
+    <%= f.input :camera %>
+    <%= f.input :size %>
+    <%= f.input :weight %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
