@@ -13,7 +13,7 @@ class Location < ApplicationRecord
 
     def format_data
       self.name = self.name.downcase.titleize
-      self.city = self.city.capitalize
+      self.city = self.city.downcase.titleize
       self.address = self.address.downcase.titleize
     end
 end
