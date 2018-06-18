@@ -9,7 +9,10 @@ RSpec.describe User, type: :model do
     it { should validate_presence_of(:job_title) }
     it { should validate_presence_of(:employee_number) }
     it { should validate_length_of(:employee_number).is_equal_to 7 }
+    it { should validate_uniqueness_of(:employee_number).case_insensitive }
     it { should validate_presence_of(:department) }
+    it { should validate_presence_of(:email) }
+    it { should validate_uniqueness_of(:email).case_insensitive }
     it { should validate_presence_of(:location) }
     it { should allow_value(nil).for(:address) }
     it { should allow_value(nil).for(:state) }
