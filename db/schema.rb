@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_19_191530) do
+ActiveRecord::Schema.define(version: 2018_06_19_202120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,9 +75,9 @@ ActiveRecord::Schema.define(version: 2018_06_19_191530) do
     t.string "storage_type"
     t.string "display"
     t.string "battery_capacity"
-    t.string "wifi"
-    t.string "bluetooth"
-    t.string "gps"
+    t.boolean "wifi"
+    t.boolean "bluetooth"
+    t.boolean "gps"
     t.string "cellular"
     t.string "camera"
     t.string "size"

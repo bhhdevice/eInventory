@@ -14,9 +14,9 @@
     <%= f.input :storage_type %>
     <%= f.input :display %>
     <%= f.input :battery_capacity %>
-    <%= f.input :wifi %>
-    <%= f.input :bluetooth %>
-    <%= f.input :gps %>
+    <%= f.input :wifi, as: :radio_buttons %>
+    <%= f.input :bluetooth, as: :radio_buttons %>
+    <%= f.input :gps, as: :radio_buttons %>
     <%= f.input :cellular %>
     <%= f.input :camera %>
     <%= f.input :size %>
