@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe "models/index", type: :view do
   before(:each) do
     assign(:models, [
-      Model.create!(),
-      Model.create!()
+      create(:model),
+      create(:model)
     ])
   end
 
