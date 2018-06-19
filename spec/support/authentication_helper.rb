@@ -1,12 +1,8 @@
 module AuthenticationHelper
-  # Feature spec helper to login as a certain role.
-  def sign_in_as(role_name)
-    somebody = create(:user)
-
-    visit new_user_session_path
-    fill_in 'user_email', with: somebody.email
-    fill_in 'user_password', with: somebody.password
-    click_on 'Sign in'
+  # request login helper
+  def request_login_admin
+    admin = create(:user, admin: true, password: 'Pa$$word')
+    post user_session_path, params: {'user[email]': admin.email, 'user[password]': 'Pa$$word'}
   end
 
   # Controller helper to login as a certain role.
@@ -26,10 +22,5 @@ module AuthenticationHelper
     user.manager = true
     user.save
     sign_in user
-  end
-
-  # Request helper to login
-  def request_login(user)
-    post user_session_path, params: { email: user.email, password: user.password }
   end
 end
