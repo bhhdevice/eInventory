@@ -82,14 +82,18 @@ RSpec.describe DepartmentsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          name: 'Clinical Department',
+          cost_center: 'V321'
+        }
       }
 
       it "updates the requested department" do
         department = Department.create! valid_attributes
         put :update, params: {id: department.to_param, department: new_attributes}, session: valid_session
         department.reload
-        skip("Add assertions for updated state")
+        expect(department.name).to eq('Clinical Department')
+        expect(department.cost_center).to eq('V321')
       end
 
       it "redirects to the department" do

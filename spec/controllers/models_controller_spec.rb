@@ -87,14 +87,22 @@ RSpec.describe ModelsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          name: 'SM54321',
+          release_date: Date.tomorrow,
+          brand_id: create(:brand, name: 'Brand2').id,
+          category_id: create(:category, name: 'Category2').id
+        }
       }
 
       it "updates the requested model" do
         model = Model.create! valid_attributes
         put :update, params: {id: model.to_param, model: new_attributes}, session: valid_session
         model.reload
-        skip("Add assertions for updated state")
+        expect(model.name).to eq('SM54321')
+        expect(model.release_date).to eq(Date.tomorrow)
+        expect(model.brand).to eq(Brand.where(name: 'Brand2').first)
+        expect(model.category).to eq(Category.where(name: 'Category2').first)
       end
 
       it "redirects to the model" do

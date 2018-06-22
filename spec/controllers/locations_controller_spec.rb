@@ -90,14 +90,26 @@ RSpec.describe LocationsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          name: 'Clinical Location',
+          address: '123 New St',
+          city: 'New City',
+          state: 'NY',
+          zip_code: '54321',
+          phone_number: '777-888-9999'
+        }
       }
 
       it "updates the requested location" do
         location = Location.create! valid_attributes
         put :update, params: {id: location.to_param, location: new_attributes}, session: valid_session
         location.reload
-        skip("Add assertions for updated state")
+        expect(location.name).to eq('Clinical Location')
+        expect(location.address).to eq('123 New St')
+        expect(location.city).to eq('New City')
+        expect(location.state).to eq('NY')
+        expect(location.zip_code).to eq('54321')
+        expect(location.phone_number).to eq('777-888-9999')
       end
 
       it "redirects to the location" do

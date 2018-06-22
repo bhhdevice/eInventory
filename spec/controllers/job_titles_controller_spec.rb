@@ -78,7 +78,7 @@ RSpec.describe JobTitlesController, type: :controller do
     context "with valid params" do
       let(:new_attributes) {
         {
-          name: 'clinical manager'
+          name: 'Clinical Manager'
         }
       }
 
@@ -86,7 +86,7 @@ RSpec.describe JobTitlesController, type: :controller do
         job_title = JobTitle.create! valid_attributes
         put :update, params: {id: job_title.to_param, job_title: new_attributes}, session: valid_session
         job_title.reload
-        skip("Add assertions for updated state")
+        expect(job_title.name).to eq('Clinical Manager')
       end
 
       it "redirects to the job_titles page" do

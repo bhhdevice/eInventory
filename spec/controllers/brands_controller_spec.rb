@@ -94,14 +94,28 @@ RSpec.describe BrandsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          name: 'Clinical Department',
+          address: '123 New St',
+          city: 'New City',
+          state: 'NY',
+          zip_code: '54321',
+          phone_number: '777-888-9999',
+          website: 'https://www.new.com'
+        }
       }
 
       it "updates the requested brand" do
         brand = Brand.create! valid_attributes
         put :update, params: {id: brand.to_param, brand: new_attributes}, session: valid_session
         brand.reload
-        skip("Add assertions for updated state")
+        expect(brand.name).to eq('Clinical Department')
+        expect(brand.address).to eq('123 New St')
+        expect(brand.city).to eq('New City')
+        expect(brand.state).to eq('NY')
+        expect(brand.zip_code).to eq('54321')
+        expect(brand.phone_number).to eq('777-888-9999')
+        expect(brand.website).to eq('https://www.new.com')
       end
 
       it "redirects to the brand" do

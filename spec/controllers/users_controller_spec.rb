@@ -82,7 +82,15 @@ RSpec.describe UsersController, type: :controller do
     context "with valid params" do
       let(:new_attributes) {
         {
-          name: 'clinical manager'
+          first_name: 'Tim',
+          last_name: 'Test',
+          employee_number: "EN99999",
+          job_title_id: create(:job_title, name: 'Job Title2').id,
+          department_id: create(:department, name: 'Department Title2').id,
+          location_id: create(:location, name: 'Location Title2').id,
+          status_id: create(:status, name: 'Status Title2').id,
+          disable_login: true,
+          email: "tim.test278@test.com"
         }
       }
 
@@ -90,7 +98,15 @@ RSpec.describe UsersController, type: :controller do
         user = User.create! valid_attributes
         put :update, params: {id: user.to_param, user: new_attributes}, session: valid_session
         user.reload
-        skip("Add assertions for updated state")
+        expect(user.first_name).to eq('Tim')
+        expect(user.last_name).to eq('Test')
+        expect(user.employee_number).to eq('EN99999')
+        expect(user.job_title).to eq(JobTitle.where(name: 'Job Title2').first)
+        expect(user.department).to eq(Department.where(name: 'Department Title2').first)
+        expect(user.location).to eq(Location.where(name: 'Location Title2').first)
+        expect(user.status).to eq(Status.where(name: 'Status Title2').first)
+        expect(user.disable_login).to eq(true)
+        expect(user.email).to eq('tim.test278@test.com')
       end
 
       it "redirects to the users page" do
