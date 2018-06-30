@@ -14,7 +14,7 @@
       <tr>
         <td><%= "#{model.brand.name} #{model.name}" %></td>
         <td><%= link_to 'Edit', edit_model_path(model) %></td>
-        <td><%= link_to 'Destroy', model, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', model, method: :delete, data: { confirm: 'This will also destroy all equipment associated with this model, are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_19_202120) do
+ActiveRecord::Schema.define(version: 2018_06_28_172144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,28 @@ ActiveRecord::Schema.define(version: 2018_06_19_202120) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name", "cost_center"], name: "index_departments_on_name_and_cost_center", unique: true
+  end
+
+  create_table "equipment", force: :cascade do |t|
+    t.bigint "brand_id", null: false
+    t.bigint "model_id", null: false
+    t.string "asset_tag", limit: 6
+    t.string "hostname"
+    t.string "serial_number"
+    t.string "phone_number"
+    t.string "sim_number", limit: 20
+    t.string "imei", limit: 15
+    t.string "device_number", limit: 15
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["asset_tag"], name: "index_equipment_on_asset_tag"
+    t.index ["brand_id"], name: "index_equipment_on_brand_id"
+    t.index ["device_number"], name: "index_equipment_on_device_number"
+    t.index ["imei"], name: "index_equipment_on_imei"
+    t.index ["model_id"], name: "index_equipment_on_model_id"
+    t.index ["phone_number"], name: "index_equipment_on_phone_number"
+    t.index ["serial_number"], name: "index_equipment_on_serial_number"
+    t.index ["sim_number"], name: "index_equipment_on_sim_number"
   end
 
   create_table "job_titles", force: :cascade do |t|
@@ -84,9 +106,12 @@ ActiveRecord::Schema.define(version: 2018_06_19_202120) do
     t.string "weight"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "number"
+    t.string "website"
     t.index ["brand_id"], name: "index_models_on_brand_id"
     t.index ["category_id"], name: "index_models_on_category_id"
     t.index ["name"], name: "index_models_on_name", unique: true
+    t.index ["number"], name: "index_models_on_number"
     t.index ["release_date"], name: "index_models_on_release_date"
   end
 

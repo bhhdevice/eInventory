@@ -2,7 +2,7 @@ class BrandsController < ApplicationController
   before_action :set_object, only: [:edit, :update, :destroy]
 
   def index
-    @brands = Brand.all
+    @brands = Brand.all.sort_by(&:name)
   end
 
   def new
@@ -32,7 +32,7 @@ class BrandsController < ApplicationController
 
   def destroy
     @brand.destroy
-    redirect_to brands_path
+    redirect_to brands_path, notice: 'Brand removed successfully'
   end
 
   private

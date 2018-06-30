@@ -32,7 +32,7 @@ class CategoriesController < InheritedResources::Base
 
   def destroy
     @category.destroy
-    redirect_to categories_path
+    redirect_to categories_path, notice: 'Category removed successfully'
   end
 
   private

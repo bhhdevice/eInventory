@@ -1,5 +1,6 @@
 class Brand < ApplicationRecord
   has_many :models, dependent: :destroy
+  has_many :equipment, dependent: :destroy
   before_save :format_data
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
@@ -13,7 +14,7 @@ class Brand < ApplicationRecord
 
   private
     def format_data
-      self.name = self.name.downcase.titleize
+      self.name = (self.name =~ /\-|\&/).present? ? self.name.upcase : self.name.downcase.titleize
       self.city.nil? ? nil : self.city = self.city.downcase.titleize
       self.address.nil? ? nil : self.address = self.address.downcase.titleize
       self.website.nil? ? nil : self.website = self.website.downcase

@@ -11,8 +11,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <p class="notice"><%= notice %></p>
+  <body class="<%= controller_name %> <%= action_name %>">
     <p class="alert"><%= alert %></p>
     <%= link_to 'Home', root_path %>
     <%= yield %>

@@ -32,7 +32,7 @@ class JobTitlesController < ApplicationController
 
   def destroy
     @job_title.destroy
-    redirect_to job_titles_path
+    redirect_to job_titles_path, notice: 'Job Title removed successfully'
   end
 
   private

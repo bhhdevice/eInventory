@@ -32,7 +32,7 @@ class LocationsController < ApplicationController
 
   def destroy
     @location.destroy
-    redirect_to locations_path
+    redirect_to locations_path, notice: 'Location removed successfully'
   end
 
   private

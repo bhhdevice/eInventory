@@ -32,7 +32,7 @@ class ModelsController < InheritedResources::Base
 
   def destroy
     @model.destroy
-    redirect_to models_path
+    redirect_to models_path, notice: 'Model removed successfully'
   end
 
   private
