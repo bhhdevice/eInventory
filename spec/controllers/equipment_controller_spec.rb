@@ -86,14 +86,18 @@ RSpec.describe EquipmentController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          brand_id: @brand.id,
+          model_id: @model.id
+        }
       }
 
       it "updates the requested equipment" do
         equipment = Equipment.create! valid_attributes
         put :update, params: {id: equipment.to_param, equipment: new_attributes}, session: valid_session
         equipment.reload
-        skip("Add assertions for updated state")
+        expect(equipment.brand).to eq(@brand)
+        expect(equipment.model).to eq(@model)
       end
 
       it "redirects to the equipment" do
