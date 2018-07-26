@@ -8,6 +8,10 @@ class ApplicationController < ActionController::Base
 
   protected
 
+    def update_stock
+      Brand.update_all(stock: [total: self.models.count])
+    end
+
     def load_states
       @states = HomeHelper::STATES.sort.map { |k,v| [k,v] }
     end

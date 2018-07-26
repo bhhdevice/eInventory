@@ -15,6 +15,9 @@
         <td><%= brand.name %></td>
         <td><%= link_to 'Edit', edit_brand_path(brand) %></td>
         <td><%= link_to 'Destroy', brand, method: :delete, data: { confirm: 'This will also destroy all equipment and models associated with this brand, are you sure?' } %></td>
+        <td>Total: <%= brand.stock.total %></td>
+        <td>Available: <%= brand.stock.available %></td>
+        <td>In-Use: <%= brand.stock.in_use %></td>
       </tr>
     <% end %>
   </tbody>

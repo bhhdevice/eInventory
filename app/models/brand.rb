@@ -1,7 +1,9 @@
 class Brand < ApplicationRecord
   has_many :models, dependent: :destroy
   has_many :equipment, dependent: :destroy
+  has_one :stock, as: :item, dependent: :destroy
   before_save :format_data
+  after_save :create_stock
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :address, presence: true, allow_blank: true
@@ -18,5 +20,9 @@ class Brand < ApplicationRecord
       self.city.nil? ? nil : self.city = self.city.downcase.titleize
       self.address.nil? ? nil : self.address = self.address.downcase.titleize
       self.website.nil? ? nil : self.website = self.website.downcase
+    end
+
+    def create_stock
+      Stock.find_or_create_by(item: self)
     end
 end
