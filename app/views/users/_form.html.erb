@@ -7,7 +7,7 @@
     <%= f.input :first_name, required: true, autofocus: true %>
     <%= f.input :last_name, required: true %>
     <%= f.association :job_title, required: true %>
-    <%= f.association :reports_to, collection: @managers, include_blank: true %>
+    <%= f.association :reports_to, collection: @manager, include_blank: true %>
     <%= f.input :employee_number, hint: ('EN######'), input_html: { maxlength: 7 }, required: true %>
     <%= f.association :department, required: true %>
     <%= f.association :location, required: true %>

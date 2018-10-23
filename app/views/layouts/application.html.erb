@@ -10,10 +10,15 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
+  <header>
+    <%= render "layouts/navbar" %>
+  </header>
   <body class="<%= controller_name %> <%= action_name %>">
-    <p class="alert"><%= alert %></p>
-    <%= link_to 'Home', root_path %>
-    <%= yield %>
+    <div class="app-container">
+      <main class="main-content" role="main">
+        <p class="alert"><%= alert %></p>
+        <%= yield %>
+      </main>
+    </div>
   </body>
 </html>

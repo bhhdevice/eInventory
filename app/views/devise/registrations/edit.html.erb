@@ -1,16 +1,16 @@
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "form" }) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
     <%= f.input :first_name, required: true, autofocus: true %>
     <%= f.input :last_name, required: true %>
-    <%= f.association :job_title, required: true %>
-    <%= f.association :reports_to, collection: @managers, include_blank: true, disabled: true %>
-    <%= f.input :employee_number, placeholder: ('EN######'), input_html: { maxlength: 7 }, required: true %>
-    <%= f.association :department, required: true %>
-    <%= f.association :location, required: true %>
+    <%= f.association :job_title, required: true, disabled: @disable_field %>
+    <%= f.association :reports_to, collection: @managers, include_blank: true, disabled: @disable_field %>
+    <%= f.input :employee_number, placeholder: ('EN######'), input_html: { maxlength: 7 }, required: true, disabled: @disable_field %>
+    <%= f.association :department, required: true, disabled: @disable_field %>
+    <%= f.association :location, required: true, disabled: @disable_field %>
     <%= f.input :address %>
     <%= f.input :city %>
     <%= f.input :state, collection: @states, input_html: { maxlength: 2 }%>
@@ -18,9 +18,9 @@
     <%= f.input :phone_number %>
     <%= f.input :email, placeholder: 'first.last@baystatehealth.org', required: true %>
     <% if user_signed_in? && current_user.admin? %>
-      <%= f.association :status, required: true, disabled: true %>
-      <%= f.input :admin, as: :radio_buttons, required: true %>
-      <%= f.input :manager, as: :radio_buttons, required: true %>
+      <%= f.association :status, required: true, disabled: @disable_field %>
+      <%= f.input :admin, as: :radio_buttons, required: true, disabled: @disable_field %>
+      <%= f.input :manager, as: :radio_buttons, required: true, disabled: @disable_field %>
     <% end %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -31,13 +31,10 @@
     <%= f.input :password_confirmation, required: false %>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
+  <div class="form-group row mb-0">
+    <div class="col-sm-9 offset-sm-3">
+      <%= f.button :submit, "Update", class: "btn-primary" %>
+      <%= link_to 'Back', :back, class: "btn-outline-secondary" %>
+    </div>
   </div>
 <% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>

@@ -7,7 +7,7 @@ class Brand < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :address, presence: true, allow_blank: true
-  validates :state, presence: true, length: { is: 2 }, inclusion: { in: HomeHelper::STATES.values }, allow_blank: true
+  validates :state, presence: true, length: { is: 2 }, inclusion: { in: ApplicationHelper::STATES.values }, allow_blank: true
   validates :city, presence: true, allow_blank: true
   validates :zip_code, presence: true, format: { with: /\A\d{5}(?:[-\s]\d{4})?\z/i }, allow_blank: true
   validates :phone_number, presence: true, format: { with: /\A(\d{1,2}\-)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}\z/i }, allow_blank: true
