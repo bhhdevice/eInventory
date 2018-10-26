@@ -23,8 +23,9 @@
 /public/assets
 .byebug_history
 
-# Ignore master key for decrypting credentials and more.
+# Ignore master key for decrypting credentials and environment.
 /config/master.key
+.env
 
 #ignore seed file
 /db/seeds.rb
