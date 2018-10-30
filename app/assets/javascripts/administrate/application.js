@@ -1,0 +1,11 @@
+//= require jquery
+//= require popper
+//= require bootstrap
+//= require rails-ujs
+//= require activestorage
+//= require selectize
+//= require moment
+//= require datetime_picker
+//= require jquery-readyselector
+//= require equipment
+//= require_tree .

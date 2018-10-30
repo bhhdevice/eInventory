@@ -1,6 +1,9 @@
 class Equipment < ApplicationRecord
   belongs_to :brand
   belongs_to :model
+  after_create :update_stock
+  after_update :update_stock
+  after_destroy :update_stock
 
   validates :brand, presence: true
   validates :model, presence: true
@@ -13,11 +16,17 @@ class Equipment < ApplicationRecord
   validates :device_number, presence: true, uniqueness: true, numericality: true, length: { is: 15 }, allow_blank: true
   validate :model_brand_ok?
 
+
   def category
     return model.category unless model.blank?
   end
 
   private
+
+    def update_stock
+      self.brand.stock.update
+      self.model.stock.update
+    end
 
     def model_brand_ok?
       return nil unless self.brand.present? && self.model.present?

@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_action :authenticate_user!
+  before_action :authenticate_user!, unless: :home_controller?
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :get_managers, if: :devise_controller?
   before_action :load_states
@@ -8,8 +8,12 @@ class ApplicationController < ActionController::Base
 
   protected
 
+    def update_stock
+      Brand.update_all(stock: [total: self.models.count])
+    end
+
     def load_states
-      @states = HomeHelper::STATES.sort.map { |k,v| [k,v] }
+      @states = ApplicationHelper::STATES.sort.map { |k,v| [k,v] }
     end
 
     def configure_permitted_parameters
@@ -33,6 +37,10 @@ class ApplicationController < ActionController::Base
     end
 
   private
+
+    def home_controller?
+      is_a?(HomeController)
+    end
 
     # should only used to load resources from controller actions (:show, :edit, :update, :destroy)
     def load_resource(controller)

@@ -19,5 +19,14 @@ RSpec.describe Model, type: :model do
   describe 'associations' do
     it { should belong_to(:brand) }
     it { should belong_to(:category) }
+    it { should have_many(:equipment) }
+    it { should have_one(:stock) }
+  end
+
+  describe '.create_stock' do
+    it 'should create an empty stock object' do
+      create(:model)
+      expect(Model.first.stock).not_to be_nil
+    end
   end
 end

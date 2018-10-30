@@ -2,6 +2,7 @@
 <%= simple_form_for(@model) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <%= f.error_notification message: f.object.errors[:model].to_sentence if f.object.errors[:model].present? %>
 
   <div class="form-inputs">
     <%= f.association :brand, required: true %>

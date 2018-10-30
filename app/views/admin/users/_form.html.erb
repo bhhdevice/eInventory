@@ -1,0 +1,50 @@
+<%#
+# Form Partial
+
+This partial is rendered on a resource's `new` and `edit` pages,
+and renders all form fields for a resource's editable attributes.
+
+## Local variables:
+
+- `page`:
+  An instance of [Administrate::Page::Form][1].
+  Contains helper methods to display a form,
+  and knows which attributes should be displayed in the resource's form.
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Form
+%>
+
+<%= simple_form_for [namespace, page.resource], html: { class: "form" } do |f| %>
+
+
+  <%= f.error_notification %>
+
+  <%= f.input :first_name, required: true, autofocus: true %>
+  <%= f.input :last_name, required: true %>
+  <%= f.association :job_title, required: true %>
+  <%= f.association :reports_to, collection: @managers, include_blank: true %>
+  <%= f.input :employee_number, hint: ('EN######'), input_html: { maxlength: 7 }, required: true %>
+  <%= f.association :department, required: true %>
+  <%= f.association :location, required: true %>
+  <%= f.input :address %>
+  <%= f.input :city %>
+  <%= f.input :state, collection: @states, input_html: { maxlength: 2 }%>
+  <%= f.input :zip_code, hint: '12345 or 12345-1234', input_html: { maxlength: 10 } %>
+  <%= f.input :phone_number, hint: '1-123-123-1234 or 123-123-1234' %>
+  <% if user_signed_in? && current_user.admin? %>
+    <%= f.input :email, required: true %>
+    <%= f.association :status, required: true %>
+    <%= f.input :admin, as: :radio_buttons, required: true %>
+    <%= f.input :manager, as: :radio_buttons, required: true %>
+    <%= f.input :disable_login, as: :radio_buttons, hint: 'select Yes to disable user login' %>
+    <%= f.input :password, autocomplete: "off" %>
+    <%= f.input :password_confirmation, autocomplete: "off" %>
+  <% end %>
+
+  <div class="form-group row mb-0">
+    <div class="col-sm-9 offset-sm-3">
+      <%= f.button :submit, class: "btn-primary" %>
+      <%= button_to 'Back', :back %>
+    </div>
+  </div>
+<% end %>

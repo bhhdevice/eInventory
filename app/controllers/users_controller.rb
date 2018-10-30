@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_object, only: [:show, :edit, :update, :destroy]
   before_action :get_managers, except: :index
+  before_action :set_disable_field, only: [:edit, :new]
 
   def index
     @users = User.all.where.not(id: current_user)
@@ -50,6 +51,15 @@ class UsersController < ApplicationController
 
 
   private
+
+    def set_disable_field
+      binding.pry
+      if current_user.admin?
+        @disable_field = false
+      else
+        @disable_field = true
+      end
+    end
 
     def set_object
       @user = load_resource('users')

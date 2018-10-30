@@ -2,7 +2,9 @@ class Model < ApplicationRecord
   belongs_to :brand
   belongs_to :category
   has_many :equipment, dependent: :destroy
+  has_one :stock, as: :item, dependent: :destroy
   before_save :format_data
+  after_save :create_stock
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :number, presence: true, uniqueness: { case_sensitive: false }, allow_blank: true
@@ -31,4 +33,11 @@ class Model < ApplicationRecord
       self.website.nil? ? nil : self.website = self.website.downcase
     end
 
+    def create_stock
+      stock = Stock.find_or_create_by(item: self)
+      if stock.present?
+        stock.category = self.category
+        stock.save
+      end
+    end
 end

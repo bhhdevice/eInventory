@@ -25,5 +25,13 @@ RSpec.describe Brand, type: :model do
 
   describe 'associations' do
     it { should have_many(:models) }
+    it { should have_one(:stock) }
+  end
+
+  describe '.create_stock' do
+    it 'should create an empty stock object' do
+      create(:brand)
+      expect(Brand.first.stock).not_to be_nil
+    end
   end
 end

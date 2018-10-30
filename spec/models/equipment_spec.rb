@@ -36,4 +36,18 @@ RSpec.describe Equipment, type: :model do
       expect(equipment.category).to eq nil
     end
   end
+  describe '.update_stock' do
+    context 'stock total, available, & in-use for brands and models' do
+      it 'increases total when equipment is created' do
+
+      end
+      it 'decreases available when in use' do
+
+      end
+      # not implmented yet
+      # it 'increases in-use when an assignment is created and user is active' do
+      #
+      # end
+    end
+  end
 end
