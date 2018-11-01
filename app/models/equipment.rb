@@ -23,8 +23,7 @@ class Equipment < ApplicationRecord
   end
 
   def self.unassigned
-    unassigned = Equipment.all.select { |n| n.assignment.nil? ? n : nil }
-    unassigned
+    Equipment.all.select { |n| n.assignment.nil? ? n : nil }
   end
 
   private
