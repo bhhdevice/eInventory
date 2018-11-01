@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resources :job_titles
     resources :departments
     resources :locations
+    resources :assignments
 
     root to: "equipment#index"
   end

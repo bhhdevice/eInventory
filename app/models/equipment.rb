@@ -1,6 +1,7 @@
 class Equipment < ApplicationRecord
   belongs_to :brand
   belongs_to :model
+  has_one :assignment, dependent: :destroy
   after_create :update_stock
   after_update :update_stock
   after_destroy :update_stock
@@ -19,6 +20,11 @@ class Equipment < ApplicationRecord
 
   def category
     return model.category unless model.blank?
+  end
+
+  def self.unassigned
+    unassigned = Equipment.all.select { |n| n.assignment.nil? ? n : nil }
+    unassigned
   end
 
   private

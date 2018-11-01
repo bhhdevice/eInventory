@@ -8,6 +8,7 @@ class User < ApplicationRecord
   belongs_to :job_title
   belongs_to :status
   belongs_to :reports_to, class_name: 'User', foreign_key: 'reports_to_id', optional: true
+  has_many :assignments, dependent: :destroy
   after_initialize :set_defaults
   before_save :format_data
 

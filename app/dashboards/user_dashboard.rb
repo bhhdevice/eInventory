@@ -42,7 +42,8 @@ class UserDashboard < Administrate::BaseDashboard
     unlock_token: Field::String,
     locked_at: Field::DateTime,
     password: Field::Password,
-    password_confirmation: Field::Password
+    password_confirmation: Field::Password,
+    assignments: Field::HasMany
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -57,12 +58,14 @@ class UserDashboard < Administrate::BaseDashboard
     :location,
     :job_title,
     :status,
-    :disable_login
+    :disable_login,
+    :assignments,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
+    :assignments,
     :department,
     :location,
     :job_title,
@@ -120,6 +123,6 @@ class UserDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(user)
-    "#{user.full_name} - #{user.job_title.name}"
+    "#{user.last_name}, #{user.first_name} - #{user.job_title.name}"
   end
 end
