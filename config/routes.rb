@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   end
   resources :employees, only: [:index, :show]
   namespace :admin do
-    resources :users, controller: :users
+    resources :users, controller: 'users'
     resources :equipment
     resources :brands
     resources :models
@@ -16,12 +16,15 @@ Rails.application.routes.draw do
     resources :locations
     resources :assignments
 
+
     root to: "equipment#index"
   end
 
-  get 'equipment/models', controller: :equipment
-  get 'equipment/category', controller: :equipment
-
+  get 'equipment/models', controller: 'equipment'
+  get 'equipment/category', controller: 'equipment'
+  get 'assignments/quick_add', action: 'quick_add', controller: 'admin/assignments'
+  post 'assignments/quick_create', action: 'quick_create', controller: 'admin/assignments'
+  
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 

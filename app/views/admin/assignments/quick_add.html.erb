@@ -1,0 +1,23 @@
+<h1>Quick Add Assignment</h1>
+
+<%= simple_form_for(@assignment, url: assignments_quick_create_path, method: :post) do |f| %>
+  <% if @assignment.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+        <% @assignment.errors.full_messages.each do |message| %>
+          <li class="flash-error"><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-inputs">
+    <%= f.input :user_id, as: :string, hint: 'Enter a first name, last name, or employee number in this order', :input_html => { :value => ""} %>
+    <%= f.input :equipment_id, as: :string, hint: 'Enter a asset tag, or phone number', :input_html => { :value => "" } %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', admin_assignments_path %>
