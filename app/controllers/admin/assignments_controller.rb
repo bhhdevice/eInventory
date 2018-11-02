@@ -30,27 +30,20 @@ module Admin
       user_param_arr = quick_params[:user_id].split(" ")
       user = []
       equip = []
-      equip_param_arr.each do |e|
-        equip = Equipment.where("asset_tag LIKE ? OR phone_number LIKE ?", "%#{e}%", "%#{e}%")
-      end
-      user_param_arr.each do |u|
-        last_name = ""
-        first_name = ""
-        if user_param_arr.length >= 2
-          first_name = user_param_arr[0]
-          last_name = user_param_arr[1]
+      equip = Equipment.joins(:model).joins(:brand).where("equipment.asset_tag LIKE ? OR equipment.phone_number LIKE ? OR models.name ILIKE ? OR brands.name ILIKE ?", "%#{equip_param_arr[0]}%", "%#{equip_param_arr[1] || equip_param_arr[0]}%", "%#{equip_param_arr[2] || equip_param_arr[0]}%", "%#{equip_param_arr[3] || equip_param_arr[0]}%")
+      user = User.where("last_name ILIKE ? OR employee_number LIKE ? OR first_name ILIKE ? AND last_name ILIKE ?", "%#{user_param_arr[0]}%", "%#{user_param_arr[1] || user_param_arr[0]}%", "%#{user_param_arr[0]}%", "%#{user_param_arr[1]}%")
+
+      while user.count > 1 || equip.count > 1 do
+        if user.count > 1
+          @assignment.errors.add(:user_id, "Data entered returned multiple users")
         end
-        user = User.where("first_name ILIKE ? AND last_name ILIKE ? OR employee_number LIKE ? OR first_name ILIKE ? OR last_name ILIKE ?", "%#{first_name}%", "%#{last_name}%", "%#{u}%", "%#{u}%", "%#{u}%")
+        if equip.count > 1
+          @assignment.errors.add(:equipment_id, "Data entered returned multiple equipment")
+        end
+        return render :quick_add
       end
 
-      if user.count > 1
-        @assignment.errors.add(:user_id, "Data entered returned multiple users")
-      end
-      if equip.count > 1
-        @assignment.errors.add(:equipment_id, "Data entered returned multiple equipment")
-      end
-      @assignment.update(user: user.first, equipment: equip.first)
-      if @assignment.save
+      if @assignment.update(user: user.first, equipment: equip.first)
         flash[:notice] = "Assignment created successfully."
         redirect_to assignments_quick_add_path
       else
