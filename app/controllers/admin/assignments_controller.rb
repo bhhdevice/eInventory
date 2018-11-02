@@ -19,17 +19,13 @@ module Admin
     # for more information
     def quick_add
       @assignment = Assignment.new
-      @user_id = ""
-      @equipment_id = ""
-      render 'quick_add'
+      render :quick_add
     end
 
     def quick_create
       @assignment = Assignment.new
       equip_param_arr = quick_params[:equipment_id].split(" ")
       user_param_arr = quick_params[:user_id].split(" ")
-      user = []
-      equip = []
       equip = Equipment.joins(:model).joins(:brand).where("equipment.asset_tag LIKE ? OR equipment.phone_number LIKE ? OR models.name ILIKE ? OR brands.name ILIKE ?", "%#{equip_param_arr[0]}%", "%#{equip_param_arr[1] || equip_param_arr[0]}%", "%#{equip_param_arr[2] || equip_param_arr[0]}%", "%#{equip_param_arr[3] || equip_param_arr[0]}%")
       user = User.where("last_name ILIKE ? OR employee_number LIKE ? OR first_name ILIKE ? AND last_name ILIKE ?", "%#{user_param_arr[0]}%", "%#{user_param_arr[1] || user_param_arr[0]}%", "%#{user_param_arr[0]}%", "%#{user_param_arr[1]}%")
 
