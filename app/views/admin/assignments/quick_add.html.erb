@@ -1,6 +1,13 @@
-<h1>Quick Add Assignment</h1>
+<header class="main-content__header" role="banner">
+  <h1 class="main-content__page-title" id="page-title">
+    Quick Add Assignment
+  </h1>
+  <div>
+    <%= link_to 'Back', admin_assignments_path, class: "button" %>
+  </div>
+</header>
 
-<%= simple_form_for(@assignment, url: assignments_quick_create_path, method: :post) do |f| %>
+<%= simple_form_for(@assignment, url: assignments_quick_create_path, method: :post, html: { class: "form" }) do |f| %>
   <% if @assignment.errors.any? %>
     <div id="error_explanation">
       <ul>
@@ -10,14 +17,16 @@
       </ul>
     </div>
   <% end %>
-  <div class="form-inputs">
-    <%= f.input :user_id, as: :string, hint: 'Enter a first name, last name, or employee number in this order', :input_html => { :value => ""} %>
-    <%= f.input :equipment_id, as: :string, hint: 'Enter a asset tag, or phone number', :input_html => { :value => "" } %>
+  <div class="form-inputs field-unit--string">
+    <div class="field-unit__field">
+      <%= f.input :user_id, as: :string, hint: 'Enter a first name, last name, or employee number in this order', :input_html => { :value => ""} %>
+    </div>
+    <div class="field-unit__field">
+      <%= f.input :equipment_id, as: :string, hint: 'Enter a asset tag, or phone number', :input_html => { :value => "" } %>
+    </div>
   </div>
 
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
 <% end %>
-
-<%= link_to 'Back', admin_assignments_path %>

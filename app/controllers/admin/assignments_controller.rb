@@ -28,8 +28,8 @@ module Admin
       @assignment = Assignment.new
       equip_param_arr = quick_params[:equipment_id].split(" ")
       user_param_arr = quick_params[:user_id].split(" ")
-      user = nil
-      equip = nil
+      user = []
+      equip = []
       equip_param_arr.each do |e|
         equip = Equipment.where("asset_tag LIKE ? OR phone_number LIKE ?", "%#{e}%", "%#{e}%")
       end
@@ -51,6 +51,7 @@ module Admin
       end
       @assignment.update(user: user.first, equipment: equip.first)
       if @assignment.save
+        flash[:notice] = "Assignment created successfully."
         redirect_to assignments_quick_add_path
       else
         render :quick_add
