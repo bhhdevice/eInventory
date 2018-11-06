@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 2018_11_02_182517) do
     t.string "device_number", limit: 15
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "category_id"
+    t.bigint "category_id", null: false
     t.index ["asset_tag"], name: "index_equipment_on_asset_tag"
     t.index ["brand_id"], name: "index_equipment_on_brand_id"
     t.index ["category_id"], name: "index_equipment_on_category_id"
