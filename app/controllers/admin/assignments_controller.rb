@@ -1,5 +1,6 @@
 module Admin
   class AssignmentsController < Admin::ApplicationController
+    include AssignmentsHelper
     # To customize the behavior of this controller,
     # you can overwrite any of the RESTful actions. For example:
     #
@@ -23,24 +24,9 @@ module Admin
     end
 
     def quick_create
-      @assignment = Assignment.new
-      equip_param_arr = quick_params[:equipment_id].split(" ")
-      user_param_arr = quick_params[:user_id].split(" ")
-      equip = Equipment.joins(:model).joins(:brand).where("equipment.asset_tag LIKE ? OR equipment.phone_number LIKE ? OR models.name ILIKE ? OR brands.name ILIKE ?", "%#{equip_param_arr[0]}%", "%#{equip_param_arr[1] || equip_param_arr[0]}%", "%#{equip_param_arr[2] || equip_param_arr[0]}%", "%#{equip_param_arr[3] || equip_param_arr[0]}%")
-      user = User.where("last_name ILIKE ? OR employee_number LIKE ? OR first_name ILIKE ? AND last_name ILIKE ?", "%#{user_param_arr[0]}%", "%#{user_param_arr[1] || user_param_arr[0]}%", "%#{user_param_arr[0]}%", "%#{user_param_arr[1]}%")
-
-      while user.count > 1 || equip.count > 1 do
-        if user.count > 1
-          @assignment.errors.add(:user_id, "Data entered returned multiple users")
-        end
-        if equip.count > 1
-          @assignment.errors.add(:equipment_id, "Data entered returned multiple equipment")
-        end
-        return render :quick_add
-      end
-
-      if @assignment.update(user: user.first, equipment: equip.first)
-        flash[:notice] = "Assignment created successfully."
+      @assignment = Assignment.new(quick_params)
+      if Assignment.quick_add(@assignment, quick_params)
+        flash[:notice] = "All equipment assigned successfully."
         redirect_to assignments_quick_add_path
       else
         render :quick_add
@@ -50,7 +36,7 @@ module Admin
     private
 
       def quick_params
-        params.require(:assignment).permit(:user_id, :equipment_id, :id)
+        params.require(:assignment).permit(:user_search, :tablet_search, :cell_search, :smart_charger, :cell_phone_charger, :tablet_keyboard, :tablet_mouse, :id)
       end
 
   end

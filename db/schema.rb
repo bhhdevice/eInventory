@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_01_030630) do
+ActiveRecord::Schema.define(version: 2018_11_02_182517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,8 +66,10 @@ ActiveRecord::Schema.define(version: 2018_11_01_030630) do
     t.string "device_number", limit: 15
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "category_id"
     t.index ["asset_tag"], name: "index_equipment_on_asset_tag"
     t.index ["brand_id"], name: "index_equipment_on_brand_id"
+    t.index ["category_id"], name: "index_equipment_on_category_id"
     t.index ["device_number"], name: "index_equipment_on_device_number"
     t.index ["imei"], name: "index_equipment_on_imei"
     t.index ["model_id"], name: "index_equipment_on_model_id"

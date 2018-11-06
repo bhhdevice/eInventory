@@ -8,6 +8,7 @@ class EquipmentDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
+    category: Field::BelongsTo,
     brand: Field::BelongsTo,
     model: Field::BelongsTo,
     id: Field::Number,
@@ -30,6 +31,7 @@ class EquipmentDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :id,
+    :category,
     :brand,
     :model,
     :asset_tag,
@@ -60,6 +62,7 @@ class EquipmentDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
+    :category,
     :brand,
     :model,
     :asset_tag,

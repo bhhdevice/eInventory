@@ -8,8 +8,8 @@ class AssignmentDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    user: Field::BelongsTo.with_options(scope: -> { User.all.sort_by {|u| [ u.last_name, u.first_name] } }),
-    equipment: Field::BelongsTo.with_options(scope: -> { Equipment.unassigned.sort_by {|e| [ e.asset_tag, e.phone_number] } }),
+    user: Field::BelongsTo.with_options(scope: -> { User.all.sort_by {|u| [ u.last_name, u.first_name] } }, searchable: true, searchable_field: "employee_number" ),
+    equipment: Field::BelongsTo.with_options(scope: -> { Equipment.unassigned.sort_by {|e| [ e.asset_tag, e.phone_number] } }, searchable: true, searchable_field: "asset_tag" ),
     id: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,

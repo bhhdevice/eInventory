@@ -1,6 +1,7 @@
 class Equipment < ApplicationRecord
   belongs_to :brand
   belongs_to :model
+  belongs_to :category
   has_one :assignment, dependent: :destroy
   after_create :update_stock
   after_update :update_stock
@@ -8,6 +9,7 @@ class Equipment < ApplicationRecord
 
   validates :brand, presence: true
   validates :model, presence: true
+  validates :category, presence: true
   validates :asset_tag, presence: true, uniqueness: true, numericality: true, length: { is: 6 }, allow_blank: true
   validates :hostname, presence: true, uniqueness: { case_sensitive: false }, allow_blank: true
   validates :serial_number, presence: true, uniqueness: { case_sensitive: false }, allow_blank: true
@@ -17,13 +19,15 @@ class Equipment < ApplicationRecord
   validates :device_number, presence: true, uniqueness: true, numericality: true, length: { is: 15 }, allow_blank: true
   validate :model_brand_ok?
 
-
-  def category
-    return model.category unless model.blank?
+  def self.unassigned(obj = nil)
+    if obj.nil?
+      obj = Equipment.all
+    end
+    obj.select { |n| n.assignment.nil? ? n : nil }
   end
 
-  def self.unassigned
-    Equipment.all.select { |n| n.assignment.nil? ? n : nil }
+  def self.peripheral_devices
+    Equipment.where(cate)
   end
 
   private

@@ -19,10 +19,25 @@
   <% end %>
   <div class="form-inputs field-unit--string">
     <div class="field-unit__field">
-      <%= f.input :user_id, as: :string, hint: 'Enter a last name, employee number, first and last name', :input_html => { :value => ""} %>
+      <%= f.input :user_search, as: :string, hint: 'Enter a last name, employee number, first and last name' %>
     </div>
     <div class="field-unit__field">
-      <%= f.input :equipment_id, as: :string, hint: 'Enter a asset tag, or phone number', :input_html => { :value => "" } %>
+      <%= f.input :tablet_search, as: :string, label: "Tablet", hint: 'Enter a asset tag, or phone number' %>
+    </div>
+    <div class="field-unit__field">
+      <%= f.input :cell_search, as: :string, label: "Cell Phone", hint: 'Enter phone number, ex. 123-123-1234' %>
+    </div>
+    <div class="field-unit__field">
+      <%= f.input :smart_charger, as: :boolean %>
+    </div>
+    <div class="field-unit__field">
+      <%= f.input :cell_phone_charger, as: :boolean %>
+    </div>
+    <div class="field-unit__field">
+      <%= f.input :tablet_keyboard, as: :boolean %>
+    </div>
+    <div class="field-unit__field">
+      <%= f.input :tablet_mouse, as: :boolean %>
     </div>
   </div>
 
