@@ -78,6 +78,6 @@ class EquipmentDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(equipment)
-    "#{equipment.brand.name} #{equipment.model.name} #{equipment.asset_tag || equipment.serial_number || equipment.sim_number || equipment.imei || equipment.phone_number}"
+    "#{equipment.brand.name} #{equipment.model.name} #{equipment.asset_tag} #{equipment.phone_number}"
   end
 end

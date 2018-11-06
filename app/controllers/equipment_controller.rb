@@ -54,7 +54,7 @@ class EquipmentController < InheritedResources::Base
     respond_to do |format|
       format.json do
         model = Model.find(params[:modelID])
-        render json: model.category.as_json(only: [:name])
+        render json: model.category.as_json(only: [:id])
       end
       format.html { redirect_to root_path }
     end

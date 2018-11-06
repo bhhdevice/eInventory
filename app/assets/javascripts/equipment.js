@@ -8,7 +8,7 @@ function updateCategory() {
       },
       dataType:'json',
       success : function(data) {
-        $("#equipment_category").html(data['name']);
+        $("#equipment_category_id").val(data['id']);
       },
       error : function(request,error)
       {

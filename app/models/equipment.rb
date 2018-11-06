@@ -18,6 +18,7 @@ class Equipment < ApplicationRecord
   validates :imei, presence: true, uniqueness: true, numericality: true, length: { is: 15 }, allow_blank: true
   validates :device_number, presence: true, uniqueness: true, numericality: true, length: { is: 15 }, allow_blank: true
   validate :model_brand_ok?
+  validate :category_ok?
 
   def self.unassigned(obj = nil)
     if obj.nil?
@@ -43,6 +44,16 @@ class Equipment < ApplicationRecord
         return true
       else
         errors.add(:model, "selection does not exist for brand")
+        return false
+      end
+    end
+
+    def category_ok?
+      return nil unless self.category.present? && self.brand.present? && self.model.present?
+      if self.category === self.model.category
+        return true
+      else
+        errors.add(:category, "does not exist for model")
         return false
       end
     end

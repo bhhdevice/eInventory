@@ -23,7 +23,6 @@ class Assignment < ApplicationRecord
     equipment_loop.each do |type, equipment|
       equipment_objs[type] = Assignment.new(user: user, equipment: equipment)
       if equipment_objs[type].save
-        binding.pry
       else
         page_obj.errors.add(type, "#{equipment_objs[type].errors[:equipment]}")
       end
