@@ -10,8 +10,7 @@ class Stock < ApplicationRecord
 
   def update
     self.total = self.item.equipment.count
-    # not implemented yet
-    # stock.in_use = self.assignments.count
+    stock.in_use = self.assignments.count
     self.available = self.total - self.in_use
     self.save
   end

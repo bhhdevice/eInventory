@@ -8,7 +8,7 @@ class EquipmentDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    assignment: Field::HasOne,
+    assignment: Field::BelongsTo,
     category: Field::BelongsTo,
     brand: Field::BelongsTo,
     model: Field::BelongsTo,
