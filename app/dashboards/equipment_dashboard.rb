@@ -8,6 +8,7 @@ class EquipmentDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
+    assignment: Field::HasOne,
     category: Field::BelongsTo,
     brand: Field::BelongsTo,
     model: Field::BelongsTo,
@@ -31,6 +32,7 @@ class EquipmentDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
     :id,
+    :assignment,
     :category,
     :brand,
     :model,
@@ -44,6 +46,7 @@ class EquipmentDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = [
     :id,
+    :assignment,
     :brand,
     :model,
     :category,

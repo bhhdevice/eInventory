@@ -48,7 +48,7 @@ class AssignmentDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how assignments are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(assignment)
-  #   "Assignment ##{assignment.id}"
-  # end
+  def display_resource(assignment)
+    "#{assignment.user.full_name}"
+  end
 end

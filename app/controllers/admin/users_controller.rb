@@ -2,6 +2,7 @@ module Admin
   class UsersController < Admin::ApplicationController
     before_action :set_object, only: [:show, :edit, :update, :destroy]
     before_action :get_managers, except: :index
+    before_action :set_page, only: [:create, :update]
     after_action :check_account!, only: [:create, :update]
 
     def index
@@ -23,7 +24,6 @@ module Admin
       if @user.save
         redirect_to admin_users_path, notice: "User created successfully"
       else
-        @page = Administrate::Page::Form.new(dashboard, @user)
         render :new, locals: { page: @page }
       end
     end
@@ -47,6 +47,10 @@ module Admin
 
 
     private
+
+      def set_page
+        @page = Administrate::Page::Form.new(dashboard, @user)
+      end
 
       def set_object
         @user = load_resource('users')
