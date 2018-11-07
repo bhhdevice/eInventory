@@ -10,7 +10,7 @@ class Stock < ApplicationRecord
 
   def update
     self.total = self.item.equipment.count
-    stock.in_use = self.assignments.count
+    self.in_use = Assignment.where(equipment: self.item.equipment).count
     self.available = self.total - self.in_use
     self.save
   end

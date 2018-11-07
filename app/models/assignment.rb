@@ -2,6 +2,9 @@ class Assignment < ApplicationRecord
   attr_accessor :smart_charger, :cell_phone_charger, :tablet_keyboard, :tablet_mouse, :user_search, :tablet_search, :cell_search
   belongs_to :user
   belongs_to :equipment
+  after_create :update_stock
+  after_update :update_stock
+  after_destroy :update_stock
 
   validates :equipment, uniqueness: true
   validate :quick_add, on: :quick_create
@@ -33,4 +36,11 @@ class Assignment < ApplicationRecord
       return true
     end
   end
+
+  private
+
+    def update_stock
+      self.equipment.brand.stock.update
+      self.equipment.model.stock.update
+    end
 end

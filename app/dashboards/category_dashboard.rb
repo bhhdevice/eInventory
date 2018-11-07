@@ -10,6 +10,7 @@ class CategoryDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     models: Field::HasMany,
     stock: Field::HasMany,
+    equipment: Field::HasMany,
     id: Field::Number,
     name: Field::String,
     created_at: Field::DateTime,
@@ -24,7 +25,8 @@ class CategoryDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :id,
     :name,
-    :models
+    :models,
+    :equipment
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -33,6 +35,7 @@ class CategoryDashboard < Administrate::BaseDashboard
     :id,
     :name,
     :models,
+    :equipment,
     :created_at,
     :updated_at
   ].freeze
