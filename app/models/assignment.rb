@@ -12,9 +12,8 @@ class Assignment < ApplicationRecord
 
   def self.quick_add(page_obj, params)
     equipment_loop = {}
-    user = User.where("last_name ILIKE ? OR employee_number LIKE ? OR first_name ILIKE ? AND last_name ILIKE ?", "%#{params[:user_search]}%", "%#{params[:user_search]}%", "%#{params[:user_search]}%", "%#{params[:user_search]}%") unless params[:user_search] == ""
-    equipment_loop[:tablet] = Equipment.joins(:category).joins(:model).joins(:brand).where("categories.name = 'Tablet' AND equipment.asset_tag LIKE ? OR equipment.phone_number LIKE ?", "%#{params[:tablet_search]}%", "%#{params[:tablet_search]}%").first unless params[:tablet_search] == ""
-    binding.pry
+    user = User.where("last_name ILIKE ? OR employee_number ILIKE ? OR first_name ILIKE ? AND last_name ILIKE ?", "%#{params[:user_search]}%", "%#{params[:user_search]}%", "%#{params[:user_search]}%", "%#{params[:user_search]}%") unless params[:user_search] == ""
+    equipment_loop[:tablet] = Equipment.joins(:category).joins(:model).joins(:brand).where("categories.name = 'Tablet' AND equipment.asset_tag LIKE ? OR equipment.phone_number LIKE ?", "%#{params[:tablet_search]}%", "%#{params[:tablet_search]}%") unless params[:tablet_search] == ""
     equipment_loop[:cell_phone] = Equipment.joins(:model).joins(:brand).where("equipment.phone_number LIKE ?", "%#{params[:cell_search]}%").first unless params[:cell_search] == ""
     equipment_loop[:smart_charger] = Equipment.joins(:category).joins(:model).where("categories.name = 'Charger' AND models.name ILIKE '%iSmart 4-port USB Charger%'").first unless params[:smart_charger] == "0"
     equipment_loop[:cell_phone_charger] = Equipment.joins(:category).joins(:model).where("categories.name = 'Charger' AND models.name ILIKE '%apple charger%'").first unless params[:cell_phone_charger] == "0"
@@ -27,11 +26,16 @@ class Assignment < ApplicationRecord
     else
       user = user.first
     end
+    if equipment_loop[:tablet].nil? || equipment_loop[:tablet].count > 1
+      page_obj.errors.add(:equipment, "not found")
+      return false
+    else
+      equipment_loop[:tablet] = equipment_loop[:tablet].first
+    end
     equipment_loop.each do |type, equipment|
       equipment_objs[type] = Assignment.new(user: user, equipment: equipment)
       if equipment_objs[type].save
       else
-        binding.pry
         page_obj.errors.add(type, "#{equipment_objs[type].errors[:equipment]}")
       end
     end
