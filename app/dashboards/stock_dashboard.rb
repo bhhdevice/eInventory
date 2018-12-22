@@ -24,10 +24,10 @@ class StockDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = [
-    :item,
     :category,
-    :id,
+    :item,
     :total,
+    :available
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -47,16 +47,13 @@ class StockDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
-    :category,
-    :total,
-    :available,
-    :in_use,
+    :category
   ].freeze
 
   # Overwrite this method to customize how stocks are displayed
   # across all pages of the admin dashboard.
   #
   def display_resource(stock)
-    "Stock for - #{stock.item_type} #{stock.item.name}"
+    "#{stock.available}"
   end
 end

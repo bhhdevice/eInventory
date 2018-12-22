@@ -17,7 +17,8 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <%= link_to "Add User", new_admin_user_path, class: "dropdown-item" %>
             <%= link_to "Add Equipment", new_admin_equipment_path, class: "dropdown-item" %>
-            <%= link_to "Add Assignment", new_admin_assignment_path, class: "dropdown-item" %>
+            <%= link_to "Standard Assign", new_admin_assignment_path, class: "dropdown-item" %>
+            <%= link_to "Quick Assign", assignments_quick_add_path, class: "dropdown-item" %>
             <div class="dropdown-divider"></div>
             <%= link_to "View Users", admin_users_path, class: "dropdown-item" %>
             <%= link_to "View Equipment", admin_equipment_index_path, class: "dropdown-item" %>

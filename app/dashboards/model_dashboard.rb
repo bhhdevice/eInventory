@@ -43,7 +43,8 @@ class ModelDashboard < Administrate::BaseDashboard
     :name,
     :brand,
     :category,
-    :equipment
+    :equipment,
+    :stock
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -52,6 +53,7 @@ class ModelDashboard < Administrate::BaseDashboard
     :brand,
     :category,
     :equipment,
+    :stock,
     :id,
     :name,
     :release_date,

@@ -30,4 +30,13 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    models:
+      assignment:
+        one: Assigned Equipment
+        other: Assigned Equipment
+      stock:
+        one: Inventory Stock
+        other: Inventory Stock
+  helpers:
+    label:

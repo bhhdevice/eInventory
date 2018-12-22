@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :departments
     resources :locations
     resources :assignments
+    resources :stocks, except: [:new, :edit, :destroy]
 
 
     root to: "equipment#index"
@@ -24,7 +25,7 @@ Rails.application.routes.draw do
   get 'equipment/category', controller: 'equipment'
   get 'assignments/quick_add', action: 'quick_add', controller: 'admin/assignments'
   post 'assignments/quick_create', action: 'quick_create', controller: 'admin/assignments'
-  
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
