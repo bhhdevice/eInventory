@@ -20,6 +20,10 @@ class Assignment < ApplicationRecord
     equipment_loop[:tablet_keyboard] = Equipment.joins(:category).joins(:model).where("categories.name = 'Keyboard' AND models.name LIKE '%Tab E 9.6 Case w/ Keyboard%'").first unless params[:tablet_keyboard] == "0"
     equipment_loop[:tablet_mouse] = Equipment.joins(:category).joins(:model).where("categories.name = 'Mouse' AND models.name LIKE '%Compact bluetooth mouse%'").first unless params[:tablet_mouse] == "0"
     equipment_objs = {}
+    if params[:tablet_search] == "" && params[:cell_search] == "" && params[:smart_charger] == "0" && params[:cell_phone_charger] == "0" && params[:tablet_keyboard] == "0" && params[:tablet_mouse] == "0"
+      page_obj.errors.add(:user, "data entered cannot be assigned")
+      return false
+    end
     if params[:user_search] == "" || user.nil? || user.count > 1
       page_obj.errors.add(:user, "not found")
       return false
@@ -27,8 +31,6 @@ class Assignment < ApplicationRecord
       user = user.first
     end
     if equipment_loop[:tablet].nil? || equipment_loop[:tablet].count > 1
-      page_obj.errors.add(:equipment, "not found")
-      return false
     else
       equipment_loop[:tablet] = equipment_loop[:tablet].first
     end
@@ -36,7 +38,7 @@ class Assignment < ApplicationRecord
       equipment_objs[type] = Assignment.new(user: user, equipment: equipment)
       if equipment_objs[type].save
       else
-        page_obj.errors.add(type, "#{equipment_objs[type].errors[:equipment]}")
+        page_obj.errors.add(type, "#{equipment_objs[type].errors.messages.flatten.join(" ")}")
       end
     end
     if page_obj.errors.present?
