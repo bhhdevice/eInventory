@@ -24,6 +24,8 @@ module Admin
       if @user.save
         redirect_to admin_users_path, notice: "User created successfully"
       else
+        #updates page resource
+        @page = Administrate::Page::Form.new(dashboard, @user)
         render :new, locals: { page: @page }
       end
     end

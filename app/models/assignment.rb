@@ -16,6 +16,7 @@ class Assignment < ApplicationRecord
 
   def self.quick_add(page_obj, params)
     equipment_loop = {}
+    valid_equipment = []
     user = User.where("last_name ILIKE ? OR employee_number ILIKE ? OR first_name ILIKE ? AND last_name ILIKE ?", "%#{params[:user_search]}%", "%#{params[:user_search]}%", "%#{params[:user_search]}%", "%#{params[:user_search]}%") unless params[:user_search] == ""
     equipment_loop[:tablet] = Equipment.joins(:category).joins(:model).joins(:brand).where("categories.name = 'Tablet' AND equipment.asset_tag LIKE ? OR equipment.phone_number LIKE ?", "%#{params[:tablet_search]}%", "%#{params[:tablet_search]}%") unless params[:tablet_search] == ""
     equipment_loop[:cell_phone] = Equipment.joins(:model).joins(:brand).where("equipment.phone_number LIKE ?", "%#{params[:cell_search]}%").first unless params[:cell_search] == ""
@@ -40,7 +41,8 @@ class Assignment < ApplicationRecord
     end
     equipment_loop.each do |type, equipment|
       equipment_objs[type] = Assignment.new(user: user, equipment: equipment)
-      if equipment_objs[type].save
+      if equipment_objs[type].valid?
+        valid_equipment << equipment_objs[type]
       else
         page_obj.errors.add(type, "#{equipment_objs[type].errors.messages.flatten.join(" ")}")
       end
@@ -48,6 +50,9 @@ class Assignment < ApplicationRecord
     if page_obj.errors.present?
       return false
     else
+      valid_equipment.each do |e|
+        e.save
+      end
       return true
     end
   end

@@ -123,6 +123,6 @@ class UserDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(user)
-    "#{user.last_name}, #{user.first_name} - #{user.job_title.name}"
+    "#{user.last_name}, #{user.first_name} - #{user.employee_number}"
   end
 end
