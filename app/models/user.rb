@@ -9,6 +9,7 @@ class User < ApplicationRecord
   belongs_to :status
   belongs_to :reports_to, class_name: 'User', foreign_key: 'reports_to_id', optional: true
   has_many :assignments, dependent: :destroy
+  before_destroy :create_log
   after_initialize :set_defaults
   before_save :format_data
 
@@ -30,12 +31,24 @@ class User < ApplicationRecord
   validates_inclusion_of :admin, in: [true, false]
   validates_inclusion_of :manager, in: [true, false]
 
+  def self.current
+    Thread.current[:user]
+  end
+
+  def self.current=(user)
+    Thread.current[:user] = user
+  end
+
   def full_name
     "#{first_name} #{last_name}"
   end
 
   def self.managers
     where(manager: true)
+  end
+
+  def to_s
+    "#{full_name} - #{employee_number} - Phone: #{phone_number}"
   end
 
   protected

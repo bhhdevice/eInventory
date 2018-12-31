@@ -3,6 +3,7 @@ class Equipment < ApplicationRecord
   belongs_to :model
   belongs_to :category
   has_one :assignment, dependent: :destroy
+  before_destroy :create_log
   after_create :update_stock
   after_update :update_stock
   after_destroy :update_stock
@@ -19,6 +20,10 @@ class Equipment < ApplicationRecord
   validates :device_number, presence: true, uniqueness: true, numericality: true, length: { is: 15 }, allow_blank: true
   validate :model_brand_ok?
   validate :category_ok?
+
+  def to_s
+    "#{brand.name} #{model.name} - Phone: #{phone_number} - Asset: #{asset_tag} - Serial: #{serial_number}"
+  end
 
   def self.unassigned(obj = nil)
     if obj.nil?

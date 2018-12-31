@@ -2,6 +2,7 @@ class Brand < ApplicationRecord
   has_many :models, dependent: :destroy
   has_many :equipment, dependent: :destroy
   has_one :stock, as: :item, dependent: :destroy
+  before_destroy :create_log
   before_save :format_data
   after_save :create_stock
 
@@ -13,6 +14,10 @@ class Brand < ApplicationRecord
   validates :phone_number, presence: true, format: { with: /\A(\d{1,2}\-)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}\z/i }, allow_blank: true
   validates :website, presence: true, format: { with: URI::regexp(%w(http https)) }, allow_blank: true
   validates :email, presence: true, allow_blank: true
+
+  def to_s
+    "#{name}"
+  end
 
   private
     def format_data

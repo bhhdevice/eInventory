@@ -3,6 +3,7 @@ class Model < ApplicationRecord
   belongs_to :category
   has_many :equipment, dependent: :destroy
   has_one :stock, as: :item, dependent: :destroy
+  before_destroy :create_log
   before_save :format_data
   after_save :create_stock
 
@@ -25,6 +26,10 @@ class Model < ApplicationRecord
   validates :size, presence: true, allow_blank: true
   validates :weight, presence: true, allow_blank: true
   validates :website, presence: true, format: { with: URI::regexp(%w(http https)) }, allow_blank: true
+
+  def to_s
+    "#{brand.name} #{name} - #{number}"
+  end
 
   private
     def format_data

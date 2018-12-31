@@ -7,6 +7,9 @@ class Stock < ApplicationRecord
   validates :available, presence: true, numericality: true
   validates :in_use, presence: true, numericality: true
 
+  def to_s
+    "#{category.name} - Total: #{total} - Available: #{available} - In-Use: #{in_use}"
+  end
 
   def update
     self.total = self.item.equipment.count

@@ -1,5 +1,6 @@
 class Assignment < ApplicationRecord
   attr_accessor :smart_charger, :cell_phone_charger, :tablet_keyboard, :tablet_mouse, :user_search, :tablet_search, :cell_search
+  before_destroy :create_log
   belongs_to :user
   belongs_to :equipment
   after_create :update_stock
@@ -9,6 +10,9 @@ class Assignment < ApplicationRecord
   validates :equipment, uniqueness: true
   validate :quick_add, on: :quick_create
 
+  def to_s
+    "#{equipment.brand.name} #{equipment.model.name} - Phone: #{equipment.phone_number} - Asset: #{equipment.asset_tag}"
+  end
 
   def self.quick_add(page_obj, params)
     equipment_loop = {}

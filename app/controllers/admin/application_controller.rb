@@ -12,9 +12,15 @@ module Admin
     before_action :configure_permitted_parameters, if: :devise_controller?
     before_action :get_managers, if: :user_controller?
     before_action :load_states
+    before_action :set_current_user
 
 
     protected
+
+
+      def set_current_user
+        User.current = current_user
+      end
 
       def update_stock
         Brand.update_all(stock: [total: self.models.count])

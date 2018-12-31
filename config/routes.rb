@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :locations
     resources :assignments
     resources :stocks, except: [:new, :edit, :destroy]
+    resources :logs, only: [:index, :show, :destroy]
 
 
     root to: "equipment#index"

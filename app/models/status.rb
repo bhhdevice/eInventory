@@ -1,9 +1,14 @@
 class Status < ApplicationRecord
   has_many :users
   has_many :employees
+  before_destroy :create_log
   before_save :format_data
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
+
+  def to_s
+    "#{name}"
+  end
 
   private
     def format_data
