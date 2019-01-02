@@ -25,16 +25,7 @@ class Equipment < ApplicationRecord
     "#{brand.name} #{model.name} - Phone: #{phone_number} - Asset: #{asset_tag} - Serial: #{serial_number}"
   end
 
-  def self.unassigned(obj = nil)
-    if obj.nil?
-      obj = Equipment.all
-    end
-    obj.select { |n| n.assignment.nil? ? n : nil }
-  end
-
-  def self.peripheral_devices
-    Equipment.where(cate)
-  end
+  scope :unassigned,   ->{ left_outer_joins(:assignment).where("assignments.id IS NULL") }
 
   private
 

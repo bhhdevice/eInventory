@@ -38,5 +38,8 @@ en:
       stock:
         one: Inventory Stock
         other: Inventory Stock
+      log:
+        one: Past Deletions Log
+        other: Past Deletions Log
   helpers:
     label:
