@@ -22,11 +22,13 @@ class ApplicationRecord < ActiveRecord::Base
       end
 
       l.past_record = format_past_record
-      l.processed_by = [
-        current_user.full_name,
-        current_user.employee_number,
-        current_user.phone_number
-      ]
+      if current_user.present?
+        l.processed_by = [
+          current_user.full_name,
+          current_user.employee_number,
+          current_user.phone_number
+        ]
+      end
       if l.valid?
         l.save
       else

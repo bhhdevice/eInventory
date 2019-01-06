@@ -6,17 +6,53 @@ Rails.application.routes.draw do
   end
   resources :employees, only: [:index, :show]
   namespace :admin do
-    resources :users, controller: 'users'
-    resources :equipment
-    resources :brands
-    resources :models
-    resources :categories
-    resources :job_titles
+    resources :users, controller: 'users' do
+      collection do
+        post :import
+      end
+    end
+    resources :equipment do
+      collection do
+        post :import
+      end
+    end
+    resources :brands do
+      collection do
+        post :import
+      end
+    end
+    resources :models do
+      collection do
+        post :import
+      end
+    end
+    resources :categories do
+      collection do
+        post :import
+      end
+    end
+    resources :job_titles do
+      collection do
+        post :import
+      end
+    end
     resources :departments
-    resources :locations
-    resources :assignments
+    resources :locations do
+      collection do
+        post :import
+      end
+    end
+    resources :assignments do
+      collection do
+        post :import
+      end
+    end
     resources :stocks, except: [:new, :edit, :destroy]
-    resources :logs, only: [:index, :show, :destroy]
+    resources :logs, only: [:index, :show, :destroy] do
+      collection do
+        post :import
+      end
+    end
 
 
     root to: "equipment#index"

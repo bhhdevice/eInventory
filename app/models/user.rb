@@ -39,6 +39,21 @@ class User < ApplicationRecord
     Thread.current[:user] = user
   end
 
+  def self.import(file)
+    begin
+      spreadsheet = Roo::Spreadsheet.open(file.path)
+    rescue ArgumentError
+      
+    else
+      header = spreadsheet.row(1)
+      (2..spreadsheet.last_row).each do |i|
+        row = Hash[[header, spreadsheet.row(i)].transpose]
+        product = find_by(id: row["id"]) || new
+        product.attributes = row.to_hash
+      end
+    end
+  end
+
   def full_name
     "#{first_name} #{last_name}"
   end

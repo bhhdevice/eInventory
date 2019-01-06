@@ -5,11 +5,6 @@ module Admin
     before_action :set_page, only: [:create, :update]
     after_action :check_account!, only: [:create, :update]
 
-    def index
-      super
-      @users = User.all.where.not(id: current_user)
-    end
-
     def edit
       if @user == current_user
         redirect_to edit_user_registration_path
@@ -47,6 +42,15 @@ module Admin
       end
     end
 
+    def import
+      if User.import(import_params[:file])
+        redirect_to admin_users_path, notice: 'Users imported successfully.'
+      else
+        binding.pry
+        redirect_to admin_users_path, notice: "User import failed."
+      end
+    end
+
 
     private
 
@@ -76,6 +80,10 @@ module Admin
 
       def password_params
         params.require(:user).permit(:password, :password_confirmation)
+      end
+
+      def import_params
+        params.permit(:file)
       end
 
       def bypass_password(resource, password= "DisabledUser")
