@@ -40,17 +40,53 @@ class User < ApplicationRecord
   end
 
   def self.import(file)
+    row_log = { notices: [], log: ["Type - #{self.name} Import"] }
     begin
       spreadsheet = Roo::Spreadsheet.open(file.path)
+      if (spreadsheet.last_row - spreadsheet.first_row) > 200
+        row_log[:log] << "#{file.original_filename} exceeds 200 rows"
+        row_log[:notices] << "#{file.original_filename} exceeds 200 rows"
+        return row_log
+      end
     rescue ArgumentError
-      
+      row_log[:log] << "Bad file type."
+      row_log[:notices] << "Bad file type."
+      return row_log
+    rescue NoMethodError
+      row_log[:log] << "No file attached."
+      row_log[:notices] << "No file attached."
+      return row_log
     else
-      header = spreadsheet.row(1)
+      header = spreadsheet.row(1).map { |r| r.downcase.gsub(" ", "_")}
       (2..spreadsheet.last_row).each do |i|
         row = Hash[[header, spreadsheet.row(i)].transpose]
-        product = find_by(id: row["id"]) || new
-        product.attributes = row.to_hash
+        user = User.find_by(id: row["id"]) || new
+        begin
+          user.password = "Pa$$word"
+          user.password_confirmation = "Pa$$word"
+          row["location"] = Location.where("name ILIKE ?", "%#{row["location"]}%").first
+          row["department"] = Department.where("name ILIKE ?", "%#{row["department"]}%").first
+          row["job_title"] = JobTitle.where("name ILIKE ?", "%#{row["job_title"]}%").first
+          row["reports_to"] = User.managers.where("employee_number = ?", "%#{row["reports_to"]}%").first
+          user.disable_login = true
+          user.attributes = row.to_hash
+          user.save!
+        rescue ActiveRecord::AssociationTypeMismatch
+        rescue ActiveModel::UnknownAttributeError => e
+          row_log[:log] << "ROW (#{i}) - #{e.to_s}"
+          row_log[:notices] << "Error on row (#{i})"
+        rescue ActiveRecord::RecordInvalid => e
+          row_log[:log] << "ROW (#{i}) - #{e.to_s}"
+          row_log[:notices] << "Error on row (#{i})"
+        end
       end
+      if row_log[:notices].length <= 0
+        row_log[:log] << "Import Successful"
+        row_log[:notices] << "Import Successful"
+      end
+      row_log[:log] << "#{file.original_filename}"
+      row_log[:notices] << "#{file.original_filename}"
+      return row_log
     end
   end
 

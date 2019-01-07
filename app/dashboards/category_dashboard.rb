@@ -13,8 +13,8 @@ class CategoryDashboard < Administrate::BaseDashboard
     equipment: Field::HasMany,
     id: Field::Number,
     name: Field::String,
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    created_at: Field::DateTime.with_options(timezone: 'EST', format: '%m/%d/%Y %I:%M%p'),
+    updated_at: Field::DateTime.with_options(timezone: 'EST', format: '%m/%d/%Y %I:%M%p'),
   }.freeze
 
   # COLLECTION_ATTRIBUTES

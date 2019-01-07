@@ -43,12 +43,12 @@ module Admin
     end
 
     def import
-      if User.import(import_params[:file])
-        redirect_to admin_users_path, notice: 'Users imported successfully.'
-      else
-        binding.pry
-        redirect_to admin_users_path, notice: "User import failed."
-      end
+      result = User.import(import_params[:file])
+      redirect_to admin_users_path, notice: result[:notices].join(" ")
+      l = Log.new
+      l.processed_by = "#{current_user.full_name} #{current_user.employee_number}"
+      l.past_record << result[:log]
+      l.save
     end
 
 

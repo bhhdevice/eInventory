@@ -46,7 +46,7 @@ gem 'simple_form'
 gem 'devise'
 gem 'activeadmin'
 gem 'bootstrap', '~> 4.1.1'
-gem 'roo', '~> 2.7.0'
+gem 'roo', '~> 2.7.1'
 
 group :development, :test do
   gem 'activerecord-reset-pk-sequence'

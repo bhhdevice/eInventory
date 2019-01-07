@@ -19,8 +19,8 @@ class BrandDashboard < Administrate::BaseDashboard
     zip_code: Field::String,
     phone_number: Field::String,
     website: Field::String,
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    created_at: Field::DateTime.with_options(timezone: 'EST', format: '%m/%d/%Y %I:%M%p'),
+    updated_at: Field::DateTime.with_options(timezone: 'EST', format: '%m/%d/%Y %I:%M%p'),
     email: Field::String,
   }.freeze
 

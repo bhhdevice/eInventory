@@ -36,7 +36,11 @@ Rails.application.routes.draw do
         post :import
       end
     end
-    resources :departments
+    resources :departments do
+      collection do
+        post :import
+      end
+    end
     resources :locations do
       collection do
         post :import
@@ -48,11 +52,7 @@ Rails.application.routes.draw do
       end
     end
     resources :stocks, except: [:new, :edit, :destroy]
-    resources :logs, only: [:index, :show, :destroy] do
-      collection do
-        post :import
-      end
-    end
+    resources :logs, only: [:index, :show, :destroy]
 
 
     root to: "equipment#index"

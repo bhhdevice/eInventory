@@ -376,7 +376,7 @@ end
 
 #Create admin user
 
-title = JobTitle.find_or_create_by(name: "Techincal Engineer")
+title = JobTitle.find_or_create_by(name: "Technical Engineer")
 loc = Location.find_or_create_by(name: "Central", address: "50 Maple St", city: "Springfield", state: "MA", zip_code: "01103", phone_number: "413-794-2800")
 dept = Department.find_or_create_by(name: "Clinical Informatics", cost_center: "V505")
 user = FactoryBot.build(:user, job_title: title, location: loc, department: dept, admin: true)

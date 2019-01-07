@@ -98,9 +98,9 @@ ActiveRecord::Schema.define(version: 2018_12_28_164258) do
   end
 
   create_table "logs", force: :cascade do |t|
-    t.string "processed_by", default: [], array: true
-    t.string "past_user", default: [], array: true
-    t.string "past_record", default: [], array: true
+    t.string "processed_by", null: false
+    t.string "past_user"
+    t.string "past_record", default: [], null: false, array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
