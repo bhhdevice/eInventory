@@ -29,7 +29,6 @@ class User < ApplicationRecord
   validates :status, presence: true
   validates_inclusion_of :disable_login, in: [true, false]
   validates_inclusion_of :admin, in: [true, false]
-  validates_inclusion_of :manager, in: [true, false]
 
   def self.current
     Thread.current[:user]
@@ -43,9 +42,9 @@ class User < ApplicationRecord
     row_log = { notices: [], log: ["Type - #{self.name} Import"] }
     begin
       spreadsheet = Roo::Spreadsheet.open(file.path)
-      if (spreadsheet.last_row - spreadsheet.first_row) > 200
-        row_log[:log] << "#{file.original_filename} exceeds 200 rows"
-        row_log[:notices] << "#{file.original_filename} exceeds 200 rows"
+      if (spreadsheet.last_row - spreadsheet.first_row) > 100
+        row_log[:log] << "#{file.original_filename} exceeds 100 rows"
+        row_log[:notices] << "#{file.original_filename} exceeds 100 rows"
         return row_log
       end
     rescue ArgumentError
@@ -73,16 +72,21 @@ class User < ApplicationRecord
           user.save!
         rescue ActiveRecord::AssociationTypeMismatch
         rescue ActiveModel::UnknownAttributeError => e
-          row_log[:log] << "ROW (#{i}) - #{e.to_s}"
+          row_log[:log] << "Unknown Attribute ROW (#{i})"
           row_log[:notices] << "Error on row (#{i})"
         rescue ActiveRecord::RecordInvalid => e
-          row_log[:log] << "ROW (#{i}) - #{e.to_s}"
+          row_log[:log] << "Invalid Data ROW (#{i})"
           row_log[:notices] << "Error on row (#{i})"
+        end
+        if row_log[:notices].length > 50
+          row_log[:log] << "Job Terminated, too many data errors, revise #{file.original_filename}"
+          row_log[:notices] << "Job Terminated, too many data errors, revise #{file.original_filename}"
+          return row_log
         end
       end
       if row_log[:notices].length <= 0
-        row_log[:log] << "Import Successful"
-        row_log[:notices] << "Import Successful"
+        row_log[:log] << "Successful"
+        row_log[:notices] << "Successful"
       end
       row_log[:log] << "#{file.original_filename}"
       row_log[:notices] << "#{file.original_filename}"
@@ -95,7 +99,7 @@ class User < ApplicationRecord
   end
 
   def self.managers
-    where(manager: true)
+    joins(:job_title).where("job_titles.name ILIKE ? OR job_titles.name ILIKE ?", "%Manager%", "%Director%")
   end
 
   def to_s

@@ -37,16 +37,17 @@ module Admin
                                                            ])
         devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :location_id, :department_id, :phone_number,
                                                            :employee_number, :address, :state, :city, :zip_code,
-                                                           :status_id, :job_title_id, :admin, :manager, :email, :password, :password_confirmation
+                                                           :status_id, :job_title_id, :admin, :email, :password, :password_confirmation
                                                           ])
       end
 
       def get_managers
         begin
-         @managers = User.managers.where.not('id = ? OR id = ?', current_user, load_resource('users'))
+         @managers = User.managers.where.not('users.id = ? OR users.id = ?', current_user, load_resource('users'))
        rescue ActionController::ParameterMissing
          @managers = User.managers.where.not(id: current_user)
        end
+       binding.pry
        @managers = @managers.map { |m| ["#{m.full_name} - #{m.job_title.name}", m.id] }
       end
 

@@ -35,7 +35,6 @@ and renders all form fields for a resource's editable attributes.
     <%= f.input :email, required: true %>
     <%= f.association :status, required: true %>
     <%= f.input :admin, as: :radio_buttons, required: true %>
-    <%= f.input :manager, as: :radio_buttons, required: true %>
     <%= f.input :disable_login, as: :radio_buttons, hint: 'select Yes to disable user login' %>
     <%= f.input :password, autocomplete: "off" %>
     <%= f.input :password_confirmation, autocomplete: "off" %>

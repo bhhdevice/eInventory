@@ -61,7 +61,7 @@ class EmployeesController < ApplicationController
     #   params.require(:employee).permit(:first_name, :last_name, :location_id, :department_id, :phone_number,
     #                                :reports_to_id, :disable_login, :status_id, :reports_to_type, :employee_number,
     #                                :address, :state, :city, :zip_code, :active, :job_title_id, :admin,
-    #                                :manager, :email)
+    #                                :email)
     # end
     #
     # def password_params
