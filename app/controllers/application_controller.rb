@@ -34,7 +34,6 @@ class ApplicationController < ActionController::Base
      rescue ActionController::ParameterMissing
        @managers = User.managers.where.not(id: current_user)
      end
-     binding.pry
      @managers = @managers.map { |m| ["#{m.full_name} - #{m.job_title.name}", m.id] }
     end
 

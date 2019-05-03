@@ -5,6 +5,6 @@ FactoryBot.define do
     sequence(:name) do |n|
       "model#{n}"
     end
-    release_date Date.today
+    release_date { Date.today }
   end
 end
