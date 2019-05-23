@@ -13,8 +13,8 @@ class User < ApplicationRecord
   after_initialize :set_defaults
   before_save :format_data
 
-  validates :first_name, presence: true
-  validates :last_name, presence: true
+  validates :first_name, presence: true, format: { with: /[a-zA-z]\z/i }
+  validates :last_name, presence: true, format: { with: /[a-zA-z]\z/i }
   validates :job_title, presence: true
   validates :employee_number, presence: true, uniqueness: { case_sensitive: false }, length: { is: 7 }
   validates :email, presence: true, uniqueness: { case_sensitive: false }

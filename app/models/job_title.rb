@@ -3,7 +3,7 @@ class JobTitle < ApplicationRecord
   before_save :format_data
   before_destroy :create_log
 
-  validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validates :name, presence: true, uniqueness: { case_sensitive: false }, format: { with: /[a-zA-z]\z/i }
 
   def to_s
     "#{name}"
