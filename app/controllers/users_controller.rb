@@ -53,7 +53,6 @@ class UsersController < ApplicationController
   private
 
     def set_disable_field
-      binding.pry
       if current_user.admin?
         @disable_field = false
       else
@@ -68,8 +67,8 @@ class UsersController < ApplicationController
     def user_params_no_password
       params.require(:user).permit(:first_name, :last_name, :location_id, :department_id, :phone_number,
                                    :reports_to_id, :disable_login, :status_id, :reports_to_type, :employee_number,
-                                   :address, :state, :city, :zip_code, :job_title_id, :admin,
-                                   :manager, :email)
+                                   :address, :state, :city, :zip_code, :job_title_id,
+                                   :email)
     end
 
     def password_params

@@ -17,4 +17,15 @@ class Stock < ApplicationRecord
     self.available = self.total - self.in_use
     self.save
   end
+
+  #only use in emergency cases where troubleshooting the inventory does not make sense
+  def self.reset
+    Stock.destroy_all
+    Brand.all.each do |brand|
+      Stock.find_or_create_by(item: brand)
+    end
+    Model.all.each do |model|
+      Stock.find_or_create_by(item: model)
+    end
+  end
 end

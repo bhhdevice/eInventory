@@ -20,7 +20,6 @@
     <% if user_signed_in? && current_user.admin? %>
       <%= f.association :status, required: true, disabled: @disable_field %>
       <%= f.input :admin, as: :radio_buttons, required: true, disabled: @disable_field %>
-      <%= f.input :manager, as: :radio_buttons, required: true, disabled: @disable_field %>
     <% end %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

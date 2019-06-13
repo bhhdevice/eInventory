@@ -14,8 +14,8 @@ class StockDashboard < Administrate::BaseDashboard
     total: Field::Number,
     available: Field::Number,
     in_use: Field::Number,
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    created_at: Field::DateTime.with_options(timezone: 'EST', format: '%m/%d/%Y %I:%M%p'),
+    updated_at: Field::DateTime.with_options(timezone: 'EST', format: '%m/%d/%Y %I:%M%p'),
   }.freeze
 
   # COLLECTION_ATTRIBUTES

@@ -9,10 +9,10 @@ class LogDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     past_user: Field::String,
-    past_record: Field::String.with_options(searchable: true),
+    past_record: ArrayField,
     processed_by: Field::String,
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    created_at: Field::DateTime.with_options(timezone: 'EST', format: '%m/%d/%Y %I:%M%p'),
+    updated_at: Field::DateTime.with_options(timezone: 'EST', format: '%m/%d/%Y %I:%M%p'),
   }.freeze
 
   # COLLECTION_ATTRIBUTES

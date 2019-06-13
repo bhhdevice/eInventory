@@ -21,8 +21,8 @@ class EquipmentDashboard < Administrate::BaseDashboard
     sim_number: Field::String,
     imei: Field::String,
     device_number: Field::String,
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    created_at: Field::DateTime.with_options(timezone: 'EST', format: '%m/%d/%Y %I:%M%p'),
+    updated_at: Field::DateTime.with_options(timezone: 'EST', format: '%m/%d/%Y %I:%M%p'),
   }.freeze
 
   # COLLECTION_ATTRIBUTES

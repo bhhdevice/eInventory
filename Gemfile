@@ -46,6 +46,7 @@ gem 'simple_form'
 gem 'devise'
 gem 'activeadmin'
 gem 'bootstrap', '~> 4.1.1'
+gem 'roo', '~> 2.7.1'
 
 group :development, :test do
   gem 'activerecord-reset-pk-sequence'
@@ -55,6 +56,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.7'
   gem 'factory_bot_rails'
   gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
+  gem 'brakeman'
 end
 
 group :test do

@@ -5,11 +5,6 @@ module Admin
     before_action :set_page, only: [:create, :update]
     after_action :check_account!, only: [:create, :update]
 
-    def index
-      super
-      @users = User.all.where.not(id: current_user)
-    end
-
     def edit
       if @user == current_user
         redirect_to edit_user_registration_path
@@ -47,6 +42,15 @@ module Admin
       end
     end
 
+    def import
+      result = User.import(import_params[:file])
+      redirect_to admin_users_path, notice: result[:notices].join(" ")
+      l = Log.new
+      l.processed_by = "#{current_user.full_name} #{current_user.employee_number}"
+      l.past_record << result[:log]
+      l.save
+    end
+
 
     private
 
@@ -70,12 +74,16 @@ module Admin
       def user_params_no_password
         params.require(:user).permit(:first_name, :last_name, :location_id, :department_id, :phone_number,
                                      :reports_to_id, :disable_login, :status_id, :reports_to_type, :employee_number,
-                                     :address, :state, :city, :zip_code, :job_title_id, :admin,
-                                     :manager, :email)
+                                     :address, :state, :city, :zip_code, :job_title_id,
+                                     :email)
       end
 
       def password_params
         params.require(:user).permit(:password, :password_confirmation)
+      end
+
+      def import_params
+        params.permit(:file)
       end
 
       def bypass_password(resource, password= "DisabledUser")

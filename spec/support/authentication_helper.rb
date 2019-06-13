@@ -18,8 +18,9 @@ module AuthenticationHelper
   def login_manager
     @request.env["devise.mapping"] = Devise.mappings[:user]
     user = build(:user)
+    job_title = build(:job_title, name: "Manager")
     user.disable_login = false
-    user.manager = true
+    user.job_title = job_title
     user.save
     sign_in user
   end

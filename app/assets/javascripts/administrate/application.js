@@ -8,4 +8,5 @@
 //= require datetime_picker
 //= require jquery-readyselector
 //= require equipment
+//= require models
 //= require_tree .

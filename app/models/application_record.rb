@@ -14,19 +14,13 @@ class ApplicationRecord < ActiveRecord::Base
         logged_user = nil
       end
       if logged_user.present?
-        l.past_user = [
-          logged_user.full_name,
-          logged_user.employee_number,
-          logged_user.phone_number
-        ]
+        l.past_user = "#{logged_user.full_name} #{logged_user.employee_number}"
       end
 
       l.past_record = format_past_record
-      l.processed_by = [
-        current_user.full_name,
-        current_user.employee_number,
-        current_user.phone_number
-      ]
+      if current_user.present?
+        l.processed_by = "#{current_user.full_name} #{current_user.employee_number}"
+      end
       if l.valid?
         l.save
       else

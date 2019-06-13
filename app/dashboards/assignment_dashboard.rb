@@ -11,8 +11,8 @@ class AssignmentDashboard < Administrate::BaseDashboard
     user: Field::BelongsTo.with_options(scope: -> { User.all.sort_by {|u| [ u.last_name, u.first_name] } }, searchable: true, searchable_field: "employee_number" ),
     equipment: Field::BelongsTo.with_options(scope: -> { Equipment.unassigned.sort_by {|e| [ e.asset_tag, e.phone_number] } }, searchable: true, searchable_field: "asset_tag" ),
     id: Field::Number,
-    created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    created_at: Field::DateTime.with_options(timezone: 'EST', format: '%m/%d/%Y %I:%M%p'),
+    updated_at: Field::DateTime.with_options(timezone: 'EST', format: '%m/%d/%Y %I:%M%p'),
   }.freeze
 
   # COLLECTION_ATTRIBUTES

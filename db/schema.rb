@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_28_164258) do
+ActiveRecord::Schema.define(version: 2019_01_07_205706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,9 +98,9 @@ ActiveRecord::Schema.define(version: 2018_12_28_164258) do
   end
 
   create_table "logs", force: :cascade do |t|
-    t.string "processed_by", default: [], array: true
-    t.string "past_user", default: [], array: true
-    t.string "past_record", default: [], array: true
+    t.string "processed_by", null: false
+    t.string "past_user"
+    t.string "past_record", default: [], null: false, array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -169,7 +169,6 @@ ActiveRecord::Schema.define(version: 2018_12_28_164258) do
     t.string "zip_code", limit: 10
     t.bigint "job_title_id", null: false
     t.boolean "admin", default: false, null: false
-    t.boolean "manager", default: false, null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

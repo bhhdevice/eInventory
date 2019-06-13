@@ -39,7 +39,7 @@ en:
         one: Inventory Stock
         other: Inventory Stock
       log:
-        one: Past Deletions Log
-        other: Past Deletions Log
+        one: Past Log
+        other: Past Logs
   helpers:
     label:
