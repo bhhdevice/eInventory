@@ -60,8 +60,8 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'selenium-webdriver'
-  gem 'chromedriver-helper'
+  # gem 'selenium-webdriver'
+  gem 'webdrivers', '~> 4.0'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'rails-controller-testing'
 end

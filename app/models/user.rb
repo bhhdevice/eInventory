@@ -94,6 +94,27 @@ class User < ApplicationRecord
     end
   end
 
+  def self.to_csv(options = {})
+    desired_columns = ["first_name", "last_name", "department", "location"]
+    CSV.generate(options) do |csv|
+      csv << desired_columns
+      all.each do |user|
+        row = []
+        desired_columns.each do |c|
+          result = user.send(c)
+          if result.instance_of? String
+            row << result
+          else
+            row << result.name
+          end
+        end
+        csv << row
+      end
+    end
+  end
+
+
+
   def full_name
     "#{first_name} #{last_name}"
   end
