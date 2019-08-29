@@ -11,13 +11,21 @@
         <Cell><Data ss:Type="String">Last Name</Data></Cell>
         <Cell><Data ss:Type="String">Department</Data></Cell>
         <Cell><Data ss:Type="String">Location</Data></Cell>
+        <Cell><Data ss:Type="String">Phone Number</Data></Cell>
+        <Cell><Data ss:Type="String">Employee Number</Data></Cell>
+        <Cell><Data ss:Type="String">Reports To</Data></Cell>
+        <Cell><Data ss:Type="String">Email</Data></Cell>
       </Row>
     <% @users.each do |user| %>
       <Row>
         <Cell><Data ss:Type="String"><%= user.first_name %></Data></Cell>
         <Cell><Data ss:Type="String"><%= user.last_name %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= user.department %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= user.location %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= user.department.name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= user.location.name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= user.phone_number %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= user.employee_number %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= user.reports_to %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= user.email %></Data></Cell>
       </Row>
     <% end %>
     </Table>

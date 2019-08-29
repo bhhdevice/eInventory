@@ -95,9 +95,9 @@ class User < ApplicationRecord
   end
 
   def self.to_csv(options = {})
-    desired_columns = ["first_name", "last_name", "department", "location"]
+    desired_columns = ["first_name", "last_name", "department", "location", "phone_number", "employee_number", "reports_to", "email"]
     CSV.generate(options) do |csv|
-      csv << desired_columns
+      csv << desired_columns.map { |a,b| a.gsub("_", " ").titleize }
       all.each do |user|
         row = []
         desired_columns.each do |c|
@@ -105,7 +105,11 @@ class User < ApplicationRecord
           if result.instance_of? String
             row << result
           else
-            row << result.name
+            if result.try(:name)
+              row << result.try(:name)
+            else
+              row << result
+            end
           end
         end
         csv << row
