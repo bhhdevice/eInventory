@@ -10,7 +10,6 @@ class User < ApplicationRecord
   belongs_to :reports_to, class_name: 'User', foreign_key: 'reports_to_id', optional: true
   has_many :assignments, dependent: :destroy
   before_destroy :create_log
-  after_initialize :set_defaults
   before_save :format_data
 
   validates :first_name, presence: true, format: { with: /[a-zA-z]\z/i }
@@ -59,27 +58,41 @@ class User < ApplicationRecord
       header = spreadsheet.row(1).map { |r| r.downcase.gsub(" ", "_")}
       (2..spreadsheet.last_row).each do |i|
         row = Hash[[header, spreadsheet.row(i)].transpose]
-        user = User.find_by(id: row["id"]) || new
+        user = User.find_by(employee_number: row["employee_number"]) || new
         begin
-          user.password = "Pa$$word"
-          user.password_confirmation = "Pa$$word"
-          row["location"] = Location.where("name ILIKE ?", "%#{row["location"]}%").first
-          row["department"] = Department.where("name ILIKE ?", "%#{row["department"]}%").first
-          row["job_title"] = JobTitle.where("name ILIKE ?", "%#{row["job_title"]}%").first
-          row["reports_to"] = User.managers.where("employee_number = ?", "%#{row["reports_to"]}%").first
-          user.disable_login = true
+          if !user.admin && !user.disable_login
+            password = SecureRandom.alphanumeric
+            user.password = password
+            user.password_confirmation = password
+            user.disable_login = true
+          end
+          if row["location"]
+            row["location"] = Location.where("name ILIKE ?", "%#{row["location"]}%").first
+          end
+          if row["department"]
+            row["department"] = Department.where("name ILIKE ?", "%#{row["department"]}%").first
+          end
+          if row["job_title"]
+            row["job_title"] = JobTitle.where("name ILIKE ?", "%#{row["job_title"]}%").first
+          end
+          if row["reports_to"]
+            row["reports_to"] = User.managers.where("employee_number = ?", "%#{row["reports_to"]}%").first
+          end
           user.attributes = row.to_hash
-          user.save!
+          user.save
+          if user.disable_login
+            user.lock_access!
+          end
         rescue ActiveRecord::AssociationTypeMismatch
         rescue ActiveModel::UnknownAttributeError => e
-          row_log[:log] << "Unknown Attribute ROW (#{i})"
-          row_log[:notices] << "Error on row (#{i})"
+          row_log[:log] << "Error - #{row["employee_number"]} Row (#{i})/#{user.errors.messages}"
+          row_log[:notices] << "Error - #{row["employee_number"]} Row (#{i})"
         rescue ActiveRecord::RecordInvalid => e
-          row_log[:log] << "Invalid Data ROW (#{i})"
-          row_log[:notices] << "Error on row (#{i})"
+          row_log[:log] << "Invalid - #{row["employee_number"]} Row (#{i})/#{user.errors.messages}"
+          row_log[:notices] << "Invalid - #{row["employee_number"]} Row (#{i})"
         end
         if row_log[:notices].length > 50
-          row_log[:log] << "Job Terminated, too many data errors, revise #{file.original_filename}"
+          row_log[:log] << "Job Terminated, too many data errors, revise #{file.original_filename}/#{user.errors.messages}"
           row_log[:notices] << "Job Terminated, too many data errors, revise #{file.original_filename}"
           return row_log
         end
@@ -95,7 +108,7 @@ class User < ApplicationRecord
   end
 
   def self.to_csv(options = {})
-    desired_columns = ["first_name", "last_name", "department", "location", "phone_number", "employee_number", "reports_to", "email"]
+    desired_columns = ["first_name", "last_name", "employee_number", "department", "job_title", "location", "phone_number", "reports_to", "email"]
     CSV.generate(options) do |csv|
       csv << desired_columns.map { |a,b| a.gsub("_", " ").titleize }
       all.each do |user|
@@ -141,10 +154,6 @@ class User < ApplicationRecord
   end
 
   private
-
-  def set_defaults
-    self.status ||= Status.find_by_name('Active')
-  end
 
   def format_data
     self.employee_number = self.employee_number.upcase

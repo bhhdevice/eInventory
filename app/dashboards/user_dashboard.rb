@@ -57,7 +57,7 @@ class UserDashboard < Administrate::BaseDashboard
     :location,
     :job_title,
     :status,
-    :disable_login,
+    :locked_at,
     :assignments,
   ].freeze
 
