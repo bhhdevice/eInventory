@@ -14,7 +14,7 @@ and renders all form fields for a resource's editable attributes.
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Form
 %>
 
-<%= simple_form_for([namespace, page.resource], html: { class: "form" }) do |f| %>
+<%= form_for([namespace, page.resource], html: { class: "form" }) do |f| %>
   <% if page.resource.errors.any? %>
     <div id="error_explanation">
       <h2>
@@ -26,9 +26,8 @@ and renders all form fields for a resource's editable attributes.
       </h2>
 
       <ul>
-
-        <% f.object.errors.messages.each do |type, message| %>
-          <li class="flash-error"><%= "#{type.to_s.titleize} #{message.to_sentence}" %></li>
+        <% page.resource.errors.full_messages.each do |message| %>
+          <li class="flash-error"><%= message %></li>
         <% end %>
       </ul>
     </div>

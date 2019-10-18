@@ -22,10 +22,12 @@ class Stock < ApplicationRecord
   def self.reset
     Stock.destroy_all
     Brand.all.each do |brand|
-      Stock.find_or_create_by(item: brand)
+      s = Stock.find_or_create_by(item: brand)
+      s.update
     end
     Model.all.each do |model|
-      Stock.find_or_create_by(item: model)
+      s = Stock.find_or_create_by(item: model, category: model.category)
+      s.update
     end
   end
 end

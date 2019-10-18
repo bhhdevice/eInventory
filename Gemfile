@@ -38,7 +38,7 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 #builds the administrator UI
-gem 'administrate', '~> 0.10.0'
+gem 'administrate', '~> 0.12.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'jquery-rails'
@@ -61,8 +61,8 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'selenium-webdriver'
-  gem 'chromedriver-helper'
+  # gem 'selenium-webdriver'
+  gem 'webdrivers', '~> 4.0'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'rails-controller-testing'
 end

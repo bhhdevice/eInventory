@@ -29,46 +29,60 @@ class BrandDashboard < Administrate::BaseDashboard
   #
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
-  COLLECTION_ATTRIBUTES = [
-    :name,
-    :models,
-    :equipment,
-    :id,
+  COLLECTION_ATTRIBUTES = %i[
+  name
+  models
+  equipment
+  stock
+  id
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
-  SHOW_PAGE_ATTRIBUTES = [
-    :models,
-    :equipment,
-    :id,
-    :name,
-    :address,
-    :state,
-    :city,
-    :zip_code,
-    :phone_number,
-    :website,
-    :created_at,
-    :updated_at,
-    :email,
+  SHOW_PAGE_ATTRIBUTES = %i[
+  models
+  equipment
+  stock
+  id
+  name
+  address
+  state
+  city
+  zip_code
+  phone_number
+  website
+  created_at
+  updated_at
+  email
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = [
-    :models,
-    :equipment,
-    :name,
-    :address,
-    :state,
-    :city,
-    :zip_code,
-    :phone_number,
-    :website,
-    :email,
+  FORM_ATTRIBUTES = %i[
+  models
+  equipment
+  name
+  address
+  state
+  city
+  zip_code
+  phone_number
+  website
+  email
   ].freeze
+
+  # COLLECTION_FILTERS
+  # a hash that defines filters that can be used while searching via the search
+  # field of the dashboard.
+  #
+  # For example to add an option to search for open resources by typing "open:"
+  # in the search field:
+  #
+  #   COLLECTION_FILTERS = {
+  #     open: ->(resources) { where(open: true) }
+  #   }.freeze
+  COLLECTION_FILTERS = {}.freeze
 
   # Overwrite this method to customize how brands are displayed
   # across all pages of the admin dashboard.

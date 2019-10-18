@@ -5,6 +5,15 @@ module Admin
     before_action :set_page, only: [:create, :update]
     after_action :check_account!, only: [:create, :update]
 
+    def index
+      @users = User.all
+      respond_to do |format|
+        format.html { super }
+        format.csv { send_data @users.to_csv }
+        format.xls
+      end
+    end
+
     def edit
       if @user == current_user
         redirect_to edit_user_registration_path

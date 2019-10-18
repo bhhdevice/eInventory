@@ -31,6 +31,7 @@ as well as a link to its edit page.
     ) if valid_action?(:edit) && show_action?(:edit, page.resource) %>
   </div>
 </header>
+
 <section class="main-content__body">
   <dl>
     <% page.attributes.each do |attribute| %>
@@ -42,7 +43,7 @@ as well as a link to its edit page.
       </dt>
 
       <dd class="attribute-data attribute-data--<%=attribute.html_class%>"
-          ><%= render_field attribute %></dd>
+          ><%= render_field attribute, page: page %></dd>
     <% end %>
   </dl>
 </section>

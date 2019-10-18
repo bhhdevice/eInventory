@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">First Name</Data></Cell>
+        <Cell><Data ss:Type="String">Last Name</Data></Cell>
+        <Cell><Data ss:Type="String">Employee Number</Data></Cell>
+        <Cell><Data ss:Type="String">Department</Data></Cell>
+        <Cell><Data ss:Type="String">Job Title</Data></Cell>
+        <Cell><Data ss:Type="String">Location</Data></Cell>
+        <Cell><Data ss:Type="String">Phone Number</Data></Cell>
+        <Cell><Data ss:Type="String">Reports To</Data></Cell>
+        <Cell><Data ss:Type="String">Email</Data></Cell>
+      </Row>
+    <% @users.each do |user| %>
+      <Row>
+        <Cell><Data ss:Type="String"><%= user.first_name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= user.last_name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= user.employee_number %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= user.department.name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= user.job_title %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= user.location.name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= user.phone_number %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= user.reports_to %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= user.email %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>
