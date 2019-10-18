@@ -65,16 +65,16 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    administrate (0.10.0)
-      actionpack (>= 4.2, < 6.0)
-      actionview (>= 4.2, < 6.0)
-      activerecord (>= 4.2, < 6.0)
+    administrate (0.12.0)
+      actionpack (>= 4.2)
+      actionview (>= 4.2)
+      activerecord (>= 4.2)
       autoprefixer-rails (>= 6.0)
       datetime_picker_rails (~> 0.0.7)
       jquery-rails (>= 4.0)
       kaminari (>= 1.0)
       momentjs-rails (~> 2.8)
-      sass-rails (~> 5.0)
+      sassc-rails (~> 2.1)
       selectize-rails (~> 0.6)
     arbre (1.2.1)
       activesupport (>= 3.0.0)
@@ -352,7 +352,7 @@ PLATFORMS
 DEPENDENCIES
   activeadmin
   activerecord-reset-pk-sequence
-  administrate (~> 0.10.0)
+  administrate (~> 0.12.0)
   bootsnap (>= 1.1.0)
   bootstrap (~> 4.1.1)
   capybara

@@ -8,6 +8,7 @@ class LogDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
+    id: Field::Number,
     past_user: Field::String,
     past_record: ArrayField,
     processed_by: Field::String,
@@ -20,29 +21,41 @@ class LogDashboard < Administrate::BaseDashboard
   #
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
-  COLLECTION_ATTRIBUTES = [
-    :created_at,
-    :past_user,
-    :past_record,
-    :processed_by
+  COLLECTION_ATTRIBUTES = %i[
+  created_at
+  past_user
+  past_record
+  processed_by
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
-  SHOW_PAGE_ATTRIBUTES = [
-    :created_at,
-    :past_user,
-    :past_record,
-    :processed_by,
+  SHOW_PAGE_ATTRIBUTES = %i[
+  created_at
+  past_user
+  past_record
+  processed_by
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = [
+  FORM_ATTRIBUTES = %i[
   ].freeze
 
-  # Overwrite this method to customize how stocks are displayed
+  # COLLECTION_FILTERS
+  # a hash that defines filters that can be used while searching via the search
+  # field of the dashboard.
+  #
+  # For example to add an option to search for open resources by typing "open:"
+  # in the search field:
+  #
+  #   COLLECTION_FILTERS = {
+  #     open: ->(resources) { where(open: true) }
+  #   }.freeze
+  COLLECTION_FILTERS = {}.freeze
+
+  # Overwrite this method to customize how logs are displayed
   # across all pages of the admin dashboard.
   #
   def display_resource(log)
