@@ -3,6 +3,7 @@ module Admin
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     include AssignmentsHelper
+    include AdministrateExportable::Exporter
     # To customize the behavior of this controller,
     # you can overwrite any of the RESTful actions. For example:
     #

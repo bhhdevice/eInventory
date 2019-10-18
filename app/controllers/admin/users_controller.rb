@@ -1,5 +1,6 @@
 module Admin
   class UsersController < Admin::ApplicationController
+    include AdministrateExportable::Exporter
     before_action :set_object, only: [:show, :edit, :update, :destroy]
     before_action :get_managers, except: :index
     before_action :set_page, only: [:create, :update]

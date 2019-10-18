@@ -8,11 +8,13 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users, controller: 'users' do
       collection do
+        get :export
         post :import
       end
     end
     resources :equipment do
       collection do
+        get :export
         post :import
       end
     end
@@ -48,6 +50,7 @@ Rails.application.routes.draw do
     end
     resources :assignments do
       collection do
+        get :export
         post :import
       end
     end
@@ -57,7 +60,6 @@ Rails.application.routes.draw do
 
     root to: "equipment#index"
   end
-
   get 'equipment/models', controller: 'equipment'
   get 'equipment/category', controller: 'equipment'
   get 'assignments/quick_add', action: 'quick_add', controller: 'admin/assignments'

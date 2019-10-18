@@ -39,6 +39,8 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 #builds the administrator UI
 gem 'administrate', '~> 0.12.0'
+#export data from administrate
+gem 'administrate_exportable', '~> 0.1.3'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'jquery-rails'
